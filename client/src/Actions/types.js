@@ -8,3 +8,11 @@ export const USER_LOADED = 'USER_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const LOGOUT = 'LOGOUT';
+
+// Admin Types
+export const ADMIN_LOGIN_SUCCESS = 'ADMIN_LOGIN_SUCCESS';
+export const ADMIN_LOGIN_FAIL = 'ADMIN_LOGIN_FAIL';
+export const ADMIN_USER_LOADED = 'ADMIN_USER_LOADED';
+export const SET_ADMIN_AUTH_LOADING = 'SET_ADMIN_AUTH_LOADING';
+export const ADMIN_AUTH_ERROR = 'ADMIN_AUTH_ERROR';
+export const ADMIN_CLEAR_ERRORS = 'ADMIN_CLEAR_ERRORS';

@@ -9,7 +9,11 @@ import Register from './component/Auth/Register';
 import Home from './component/Pages/Home';
 import About from './component/Pages/About';
 
+import AdminLogin from './component/Admin/Login';
+import AdminHome from './component/Admin/Home';
+
 import PrivateRoute from './routing/PrivateRoute';
+import AdminRoute from './routing/AdminRoute';
 
 const App = () => {
 	return (
@@ -18,8 +22,10 @@ const App = () => {
 				<Switch>
 					<PrivateRoute exact path='/' component={Home} />
 					<PrivateRoute exact path='/about' component={About} />
+					<AdminRoute exact path='/admin/home' component={AdminHome} />
 					<Route exact path='/login' component={Login} />
 					<Route exact path='/register' component={Register} />
+					<Route exact path='/admin' component={AdminLogin} />
 				</Switch>
 			</Router>
 		</Provider>

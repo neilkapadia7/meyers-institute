@@ -6,12 +6,12 @@ const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const Admin = require('../models/Admin');
-const auth = require('../middleware/auth');
+const adminMiddleware = require('../middleware/admin');
 
 // @route   GET    api/admin/auth
 // @desc    Get Logged in user
 // @access  Private
-router.get('/', auth, async (req, res) => {
+router.get('/', adminMiddleware, async (req, res) => {
 	try {
 		const admin = await Admin.findById(req.user.id).select('-password');
 		res.json(admin);
