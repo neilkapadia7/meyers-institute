@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { register } from '../../Actions/authActions';
+import { register, loadUser } from '../../Actions/authActions';
 
-const Register = ({ register }) => {
+const Register = (props) => {
+	const {
+		auth: { isAuthenticated, error },
+		register,
+		loadUser,
+	} = props;
+
+	useEffect(() => {
+		loadUser();
+
+		if (isAuthenticated) {
+			props.history.push('/');
+		}
+
+		if (error) {
+			console.log(error);
+		}
+	}, [loadUser, isAuthenticated, error]);
+
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -58,6 +76,11 @@ const Register = ({ register }) => {
 
 Register.propTypes = {
 	register: PropTypes.func.isRequired,
+	loadUser: PropTypes.func.isRequired,
 };
 
-export default connect(null, { register })(Register);
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { register, loadUser })(Register);

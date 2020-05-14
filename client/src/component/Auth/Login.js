@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../../Actions/authActions';
+import { login, loadUser } from '../../Actions/authActions';
 
-const Login = ({ login }) => {
+const Login = (props) => {
+	const {
+		login,
+		loadUser,
+		auth: { isAuthenticated, error },
+	} = props;
+
+	useEffect(() => {
+		loadUser();
+
+		if (isAuthenticated) {
+			props.history.push('/');
+		}
+
+		if (error) {
+			console.log(error);
+		}
+	}, [loadUser, isAuthenticated, error]);
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
@@ -43,6 +61,12 @@ const Login = ({ login }) => {
 
 Login.propTypes = {
 	login: PropTypes.func.isRequired,
+	loadUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { login })(Login);
+const mapStateToProps = (state) => ({
+	auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login, loadUser })(Login);

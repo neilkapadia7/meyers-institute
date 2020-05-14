@@ -4,7 +4,24 @@ import {
 	REGISTER_FAIL,
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
+	USER_LOADED,
+	AUTH_ERROR,
 } from './types';
+import setAuthToken from '../utils/setAuthToken';
+
+export const loadUser = () => async (dispatch) => {
+	if (localStorage.token) {
+		setAuthToken(localStorage.token);
+	}
+
+	try {
+		const res = await axios.get('/api/auth');
+		dispatch({ type: USER_LOADED, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: AUTH_ERROR });
+	}
+};
 
 export const register = (formData) => async (dispatch) => {
 	const config = {
@@ -20,6 +37,8 @@ export const register = (formData) => async (dispatch) => {
 	} catch (err) {
 		dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
 	}
+
+	dispatch(loadUser());
 };
 
 export const login = (formData) => async (dispatch) => {
@@ -36,4 +55,6 @@ export const login = (formData) => async (dispatch) => {
 	} catch (err) {
 		dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
 	}
+
+	dispatch(loadUser());
 };
