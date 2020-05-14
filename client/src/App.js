@@ -6,8 +6,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Login from './component/Auth/Login';
 import Register from './component/Auth/Register';
-import Home from './component/Pages/Home';
-import About from './component/Pages/About';
+import Home from './component/Guest Page/Home';
+import About from './component/Guest Page/About';
 
 import AdminLogin from './component/Admin/Login';
 import AdminHome from './component/Admin/Home';

@@ -6,6 +6,9 @@ import {
 	LOGIN_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
+	SET_AUTH_LOADING,
+	CLEAR_AUTH_ERRORS,
+	LOGOUT,
 } from './types';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -24,6 +27,8 @@ export const loadUser = () => async (dispatch) => {
 };
 
 export const register = (formData) => async (dispatch) => {
+	dispatch({ type: SET_AUTH_LOADING });
+
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -42,6 +47,8 @@ export const register = (formData) => async (dispatch) => {
 };
 
 export const login = (formData) => async (dispatch) => {
+	dispatch({ type: SET_AUTH_LOADING });
+
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -57,4 +64,12 @@ export const login = (formData) => async (dispatch) => {
 	}
 
 	dispatch(loadUser());
+};
+
+export const clearAuthError = () => (dispatch) => {
+	dispatch({ type: CLEAR_AUTH_ERRORS });
+};
+
+export const logout = () => (dispatch) => {
+	dispatch({ type: LOGOUT });
 };

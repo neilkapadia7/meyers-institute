@@ -4,6 +4,8 @@ import {
 	ADMIN_LOGIN_FAIL,
 	ADMIN_USER_LOADED,
 	ADMIN_AUTH_ERROR,
+	SET_ADMIN_AUTH_LOADING,
+	CLEAR_ADMIN_ERRORS,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -22,6 +24,8 @@ export const adminLoadUser = () => async (dispatch) => {
 };
 
 export const adminLogin = (formData) => async (dispatch) => {
+	dispatch({ type: SET_ADMIN_AUTH_LOADING });
+
 	const config = {
 		headers: {
 			'Content-Type': 'application/json',
@@ -37,4 +41,8 @@ export const adminLogin = (formData) => async (dispatch) => {
 	}
 
 	dispatch(adminLoadUser());
+};
+
+export const clearAdminError = () => (dispatch) => {
+	dispatch({ type: CLEAR_ADMIN_ERRORS });
 };

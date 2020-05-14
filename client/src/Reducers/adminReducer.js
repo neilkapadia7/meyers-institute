@@ -3,6 +3,8 @@ import {
 	ADMIN_LOGIN_FAIL,
 	ADMIN_USER_LOADED,
 	ADMIN_AUTH_ERROR,
+	SET_ADMIN_AUTH_LOADING,
+	CLEAR_ADMIN_ERRORS,
 } from '../Actions/types';
 
 const initialState = {
@@ -42,6 +44,16 @@ export default (state = initialState, action) => {
 				admin_user: null,
 				admin_error: action.payload,
 				admin_loading: false,
+			};
+		case SET_ADMIN_AUTH_LOADING:
+			return {
+				...state,
+				admin_loading: true,
+			};
+		case CLEAR_ADMIN_ERRORS:
+			return {
+				...state,
+				admin_error: null,
 			};
 		default:
 			return state;
