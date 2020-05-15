@@ -11,16 +11,18 @@ const Register = (props) => {
 	} = props;
 
 	useEffect(() => {
-		loadUser();
+		if (localStorage.token) {
+			loadUser();
+		}
 
 		if (isAuthenticated) {
-			props.history.push('/');
+			props.history.push('/home');
 		}
 
 		if (error) {
 			console.log(error);
 		}
-	}, [loadUser, isAuthenticated, error]);
+	}, [localStorage, loadUser, isAuthenticated, error]);
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -42,7 +44,7 @@ const Register = (props) => {
 	};
 
 	return (
-		<div>
+		<div className='App'>
 			<form onSubmit={submit}>
 				<input
 					type='text'

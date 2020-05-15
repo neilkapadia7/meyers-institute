@@ -37,7 +37,6 @@ export default (state = initialState, action) => {
 				loading: false,
 				error: null,
 			};
-		case LOGOUT:
 		case AUTH_ERROR:
 		case REGISTER_FAIL:
 		case LOGIN_FAIL:
@@ -48,6 +47,15 @@ export default (state = initialState, action) => {
 				isAuthenticated: false,
 				user: null,
 				error: action.payload,
+				loading: false,
+			};
+		case LOGOUT:
+			localStorage.removeItem('token');
+			return {
+				...state,
+				token: null,
+				isAuthenticated: false,
+				user: null,
 				loading: false,
 			};
 		case SET_AUTH_LOADING:

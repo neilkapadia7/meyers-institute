@@ -5,6 +5,7 @@ import {
 	ADMIN_AUTH_ERROR,
 	SET_ADMIN_AUTH_LOADING,
 	CLEAR_ADMIN_ERRORS,
+	ADMIN_LOGOUT,
 } from '../Actions/types';
 
 const initialState = {
@@ -43,6 +44,15 @@ export default (state = initialState, action) => {
 				admin_isAuthenticated: false,
 				admin_user: null,
 				admin_error: action.payload,
+				admin_loading: false,
+			};
+		case ADMIN_LOGOUT:
+			localStorage.removeItem('admin');
+			return {
+				...state,
+				token: null,
+				admin_isAuthenticated: false,
+				admin_user: null,
 				admin_loading: false,
 			};
 		case SET_ADMIN_AUTH_LOADING:

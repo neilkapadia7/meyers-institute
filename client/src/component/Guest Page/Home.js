@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 
 const Home = (props) => {
 	return (
-		<div>
-			<h1>Home</h1>
+		<div id='home-sec1'>
+			<div className='App'>
+				<h1>Guest Home Page</h1>
+			</div>
 		</div>
 	);
 };

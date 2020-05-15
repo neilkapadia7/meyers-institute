@@ -6,6 +6,7 @@ import {
 	ADMIN_AUTH_ERROR,
 	SET_ADMIN_AUTH_LOADING,
 	CLEAR_ADMIN_ERRORS,
+	ADMIN_LOGOUT,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -45,4 +46,8 @@ export const adminLogin = (formData) => async (dispatch) => {
 
 export const clearAdminError = () => (dispatch) => {
 	dispatch({ type: CLEAR_ADMIN_ERRORS });
+};
+
+export const logout = () => (dispatch) => {
+	dispatch({ type: ADMIN_LOGOUT });
 };

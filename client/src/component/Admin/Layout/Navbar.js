@@ -2,9 +2,9 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../../Actions/authActions';
+import { logout } from '../../../Actions/adminActions';
 
-const Navbar = ({ auth: { isAuthenticated }, logout }) => {
+const Navbar = ({ admin: { admin_isAuthenticated }, logout }) => {
 	const Logout = () => {
 		logout();
 	};
@@ -12,11 +12,9 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 	const authLinks = (
 		<Fragment>
 			<li>
-				<Link to='/home'>Home</Link>
+				<Link to='/admin/home'>Home</Link>
 			</li>
-			<li>
-				<Link to='/about'>About</Link>
-			</li>
+
 			<li>
 				<a onClick={Logout}>Logout</a>
 			</li>
@@ -26,13 +24,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 	const guestLinks = (
 		<Fragment>
 			<li>
-				<Link to='/'>Home</Link>
-			</li>
-			<li>
-				<Link to='/login'>Sign In</Link>
-			</li>
-			<li>
-				<Link to='/register'>Register</Link>
+				<Link to='/'>Back TO Main Site</Link>
 			</li>
 		</Fragment>
 	);
@@ -42,7 +34,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 			<header>
 				<div className='logo'>Logo</div>
 				<nav>
-					<ul>{isAuthenticated ? authLinks : guestLinks}</ul>
+					<ul>{admin_isAuthenticated ? authLinks : guestLinks}</ul>
 				</nav>
 			</header>
 		</Fragment>
@@ -50,12 +42,12 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 };
 
 Navbar.propTypes = {
-	auth: PropTypes.object.isRequired,
+	admin: PropTypes.object.isRequired,
 	logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-	auth: state.auth,
+	admin: state.admin,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);

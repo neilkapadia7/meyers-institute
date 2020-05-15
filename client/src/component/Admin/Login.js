@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { adminLogin, adminLoadUser } from '../../Actions/adminActions';
+import Navbar from './Layout/Navbar';
 
 const Login = (props) => {
 	const {
@@ -12,8 +13,9 @@ const Login = (props) => {
 
 	useEffect(() => {
 		localStorage.removeItem('token');
-
-		adminLoadUser();
+		if (localStorage.admin) {
+			adminLoadUser();
+		}
 
 		if (admin_isAuthenticated) {
 			props.history.push('/admin/home');
@@ -41,23 +43,26 @@ const Login = (props) => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={submit}>
-				<input
-					type='email'
-					placeholder='Enter Your Email ID'
-					onChange={(e) => setEmail(e.target.value)}
-					required
-				/>
-				<input
-					type='password'
-					placeholder='Enter Password'
-					onChange={(e) => setPassword(e.target.value)}
-					required
-				/>
-				<input type='submit' value='Login' />
-			</form>
-		</div>
+		<Fragment>
+			<Navbar />
+			<div className='App'>
+				<form onSubmit={submit}>
+					<input
+						type='email'
+						placeholder='Enter Your Email ID'
+						onChange={(e) => setEmail(e.target.value)}
+						required
+					/>
+					<input
+						type='password'
+						placeholder='Enter Password'
+						onChange={(e) => setPassword(e.target.value)}
+						required
+					/>
+					<input type='submit' value='Login' />
+				</form>
+			</div>
+		</Fragment>
 	);
 };
 
