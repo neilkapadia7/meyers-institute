@@ -14,7 +14,18 @@ const Navbar = ({ admin: { admin_isAuthenticated }, logout }) => {
 			<li>
 				<Link to='/admin/home'>Home</Link>
 			</li>
-
+			<li>
+				<Link to='/register'>Add New User</Link>
+			</li>
+			<li>
+				<Link to='/admin/attendance'>Attendance</Link>
+			</li>
+			<li>
+				<Link to='/admin/notes'>Notes</Link>
+			</li>
+			<li>
+				<Link to='/admin/students'>Students</Link>
+			</li>
 			<li>
 				<a onClick={Logout}>Logout</a>
 			</li>
@@ -24,7 +35,7 @@ const Navbar = ({ admin: { admin_isAuthenticated }, logout }) => {
 	const guestLinks = (
 		<Fragment>
 			<li>
-				<Link to='/'>Back TO Main Site</Link>
+				<Link to='/'>Main Site</Link>
 			</li>
 		</Fragment>
 	);

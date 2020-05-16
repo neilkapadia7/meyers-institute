@@ -18,6 +18,9 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 				<Link to='/about'>About</Link>
 			</li>
 			<li>
+				<Link to='/cart'>Cart</Link>
+			</li>
+			<li>
 				<a onClick={Logout}>Logout</a>
 			</li>
 		</Fragment>
@@ -29,10 +32,13 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 				<Link to='/'>Home</Link>
 			</li>
 			<li>
-				<Link to='/login'>Sign In</Link>
+				<Link to='/about'>About</Link>
 			</li>
 			<li>
-				<Link to='/register'>Register</Link>
+				<Link to='/contact'>Contact</Link>
+			</li>
+			<li>
+				<Link to='/login'>Login</Link>
 			</li>
 		</Fragment>
 	);

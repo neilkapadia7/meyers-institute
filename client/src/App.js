@@ -7,6 +7,10 @@ import App2 from './App2';
 
 import AdminLogin from './component/Admin/Login';
 import AdminHome from './component/Admin/Home';
+import Register from './component/Auth/Register';
+import Attendance from './component/Admin/Attendance/Attendance';
+import Notes from './component/Admin/Notes/Notes';
+import Students from './component/Admin/Students/Students';
 
 import AdminRoute from './routing/AdminRoute';
 
@@ -23,6 +27,10 @@ const App = () => {
 				<Switch>
 					<Route exact path='/admin' component={AdminLogin} />
 					<AdminRoute exact path='/admin/home' component={AdminHome} />
+					<AdminRoute exact path='/register' component={Register} />
+					<AdminRoute exact path='/admin/attendance' component={Attendance} />
+					<AdminRoute exact path='/admin/notes' component={Notes} />
+					<AdminRoute exact path='/admin/students' component={Students} />
 					<App2 />
 				</Switch>
 			</Router>
