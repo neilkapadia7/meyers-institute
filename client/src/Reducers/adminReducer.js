@@ -6,6 +6,8 @@ import {
 	SET_ADMIN_AUTH_LOADING,
 	CLEAR_ADMIN_ERRORS,
 	ADMIN_LOGOUT,
+	CREATE_STUDENT,
+	STUDENT_ERROR,
 } from '../Actions/types';
 
 const initialState = {
@@ -14,6 +16,7 @@ const initialState = {
 	admin_loading: false,
 	admin_user: null,
 	admin_error: null,
+	students: null,
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +67,18 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				admin_error: null,
+			};
+
+		// Creating Student Account
+		case CREATE_STUDENT:
+			return {
+				...state,
+				students: [...state.students, action.payload],
+			};
+		case STUDENT_ERROR:
+			return {
+				...state,
+				admin_error: action.payload,
 			};
 		default:
 			return state;

@@ -7,6 +7,8 @@ import {
 	SET_ADMIN_AUTH_LOADING,
 	CLEAR_ADMIN_ERRORS,
 	ADMIN_LOGOUT,
+	CREATE_STUDENT,
+	STUDENT_ERROR,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -42,6 +44,25 @@ export const adminLogin = (formData) => async (dispatch) => {
 	}
 
 	dispatch(adminLoadUser());
+};
+
+export const createUser = (formData) => async (dispatch) => {
+	// Create User Loading to be here
+
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await axios.post('/api/users', formData, config);
+
+		console.log(res.data);
+		// dispatch({ type: CREATE_STUDENT, payload: res.data });
+	} catch (err) {
+		dispatch({ type: STUDENT_ERROR, payload: err.response.data.msg });
+	}
 };
 
 export const clearAdminError = () => (dispatch) => {

@@ -1,29 +1,11 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { register, loadUser } from '../../Actions/authActions';
+import { createUser } from '../../Actions/adminActions';
 import Navbar from '../Admin/Layout/Navbar';
 
-const Register = (props) => {
-	const {
-		auth: { isAuthenticated, error },
-		register,
-		loadUser,
-	} = props;
-
-	useEffect(() => {
-		if (localStorage.token) {
-			loadUser();
-		}
-
-		if (isAuthenticated) {
-			props.history.push('/home');
-		}
-
-		if (error) {
-			console.log(error);
-		}
-	}, [localStorage, loadUser, isAuthenticated, error]);
+const CreateUser = (props) => {
+	const { createUser } = props;
 
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -36,7 +18,7 @@ const Register = (props) => {
 		if (password !== cpassword) {
 			console.log("Passowrd Doesn't Match");
 		} else {
-			register({
+			createUser({
 				name,
 				email,
 				password,
@@ -100,13 +82,8 @@ const Register = (props) => {
 	);
 };
 
-Register.propTypes = {
-	register: PropTypes.func.isRequired,
-	loadUser: PropTypes.func.isRequired,
+CreateUser.propTypes = {
+	createUser: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps, { register, loadUser })(Register);
+export default connect(null, { createUser })(CreateUser);
