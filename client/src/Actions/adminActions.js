@@ -9,6 +9,7 @@ import {
 	ADMIN_LOGOUT,
 	CREATE_STUDENT,
 	STUDENT_ERROR,
+	GET_STUDENTS,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -58,10 +59,21 @@ export const createUser = (formData) => async (dispatch) => {
 	try {
 		const res = await axios.post('/api/users', formData, config);
 
-		console.log(res.data);
-		// dispatch({ type: CREATE_STUDENT, payload: res.data });
+		dispatch({ type: CREATE_STUDENT, payload: res.data });
 	} catch (err) {
-		dispatch({ type: STUDENT_ERROR, payload: err.response.data.msg });
+		console.log(err);
+		dispatch({ type: STUDENT_ERROR, payload: err.response });
+	}
+};
+
+export const getStudents = () => async (dispatch) => {
+	try {
+		const res = await axios.get('/api/users');
+
+		dispatch({ type: GET_STUDENTS, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: STUDENT_ERROR, payload: err.response });
 	}
 };
 

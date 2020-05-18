@@ -15,9 +15,6 @@ const Navbar = ({ admin: { admin_isAuthenticated }, logout }) => {
 				<Link to='/admin/home'>Home</Link>
 			</li>
 			<li>
-				<Link to='/register'>Add New User</Link>
-			</li>
-			<li>
 				<Link to='/admin/attendance'>Attendance</Link>
 			</li>
 			<li>

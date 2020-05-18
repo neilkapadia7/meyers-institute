@@ -6,6 +6,16 @@
 	width: 60%;
 	margin: 100px auto;
 }
+/* Title */
+/* .title-size1{
+
+} */
+.title-size2 {
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 40px;
+}
+
 header {
 	width: 100%;
 	top: 0;

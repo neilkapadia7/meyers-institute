@@ -6,6 +6,7 @@ import About from './component/Guest Page/About';
 import Navbar from './component/Layouts/Navbar';
 import Contact from './component/Guest Page/Contact';
 import { Route } from 'react-router-dom';
+import './App.css';
 
 import AuthHome from './component/Pages/Home';
 

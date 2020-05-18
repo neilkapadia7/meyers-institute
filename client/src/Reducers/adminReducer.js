@@ -8,6 +8,7 @@ import {
 	ADMIN_LOGOUT,
 	CREATE_STUDENT,
 	STUDENT_ERROR,
+	GET_STUDENTS,
 } from '../Actions/types';
 
 const initialState = {
@@ -69,11 +70,20 @@ export default (state = initialState, action) => {
 				admin_error: null,
 			};
 
+		case GET_STUDENTS:
+			return {
+				...state,
+				students: action.payload,
+			};
+
 		// Creating Student Account
 		case CREATE_STUDENT:
 			return {
 				...state,
-				students: [...state.students, action.payload],
+				students:
+					state.students === null
+						? [action.payload]
+						: [...state.students, action.payload],
 			};
 		case STUDENT_ERROR:
 			return {
