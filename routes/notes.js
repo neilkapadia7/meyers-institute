@@ -57,4 +57,22 @@ router.get('/', async (req, res) => {
 	}
 });
 
+// @route   DELETE    api/notes
+// @desc    DELETE Notes from Database
+// @access private
+router.delete('/:id', admin, async (req, res) => {
+	try {
+		const notes = await Notes.findById(req.params.id);
+
+		if (!notes) return res.status(404).json({ msg: 'File Not Found' });
+
+		await Notes.findByIdAndRemove(req.params.id);
+
+		res.json({ msg: 'File Delete' });
+	} catch (err) {
+		console.error(err.message);
+		res.status(500).json({ msg: 'Server Error' });
+	}
+});
+
 module.exports = router;

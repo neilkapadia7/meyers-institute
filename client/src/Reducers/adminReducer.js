@@ -15,6 +15,7 @@ import {
 	ADD_NOTES,
 	NOTES_ERROR,
 	GET_NOTES,
+	DELETE_NOTES,
 } from '../Actions/types';
 
 const initialState = {
@@ -129,6 +130,11 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				notes: action.payload,
+			};
+		case DELETE_NOTES:
+			return {
+				...state,
+				notes: state.notes.filter((n) => n._id !== action.payload),
 			};
 		case NOTES_ERROR:
 			return {

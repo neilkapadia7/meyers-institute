@@ -16,6 +16,7 @@ import {
 	NOTES_ERROR,
 	ADD_NOTES,
 	GET_NOTES,
+	DELETE_NOTES,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -134,6 +135,17 @@ export const getNotes = () => async (dispatch) => {
 		const res = await axios.get('/api/notes');
 
 		dispatch({ type: GET_NOTES, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: NOTES_ERROR, payload: err });
+	}
+};
+
+export const deleteNotes = (id) => async (dispatch) => {
+	try {
+		const res = await axios.delete(`/api/notes/${id}`);
+
+		dispatch({ type: DELETE_NOTES, payload: id });
 	} catch (err) {
 		console.log(err);
 		dispatch({ type: NOTES_ERROR, payload: err });

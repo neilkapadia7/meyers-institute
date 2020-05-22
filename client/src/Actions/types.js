@@ -26,3 +26,4 @@ export const ATTENDANCE_ERROR = 'ATTENDANCE_ERROR';
 export const ADD_NOTES = 'ADD_NOTES';
 export const GET_NOTES = 'GET_NOTES';
 export const NOTES_ERROR = 'NOTES_ERROR';
+export const DELETE_NOTES = 'DELETE_NOTES';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Moment from 'react-moment';
+import NotesItem from './NotesItem';
 
 const GetNotes = ({ notes }) => {
 	function evalNotes() {
@@ -15,15 +15,7 @@ const GetNotes = ({ notes }) => {
 			<div className='student-main-div'>
 				{evalNotes()}
 				{notes !== null
-					? notes.map((note) => (
-							<div className='student-item' key={note._id}>
-								<h3 className='student-name'>{note.title}</h3>
-								<a href={note.path} download>
-									Download
-								</a>
-								<Moment format='D M YYYY'>{note.date}</Moment>
-							</div>
-					  ))
+					? notes.map((note) => <NotesItem notes={note} key={note._id} />)
 					: null}
 			</div>
 		</div>
