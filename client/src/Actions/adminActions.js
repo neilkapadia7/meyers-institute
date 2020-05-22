@@ -10,6 +10,9 @@ import {
 	CREATE_STUDENT,
 	STUDENT_ERROR,
 	GET_STUDENTS,
+	ATTENDANCE_ERROR,
+	ADD_ATTENDANCE,
+	GET_ATTENDANCE,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -74,6 +77,34 @@ export const getStudents = () => async (dispatch) => {
 	} catch (err) {
 		console.log(err);
 		dispatch({ type: STUDENT_ERROR, payload: err.response });
+	}
+};
+
+export const getAttendance = () => async (dispatch) => {
+	try {
+		const res = await axios.get('/api/admin/attendance');
+
+		dispatch({ type: GET_ATTENDANCE, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: ATTENDANCE_ERROR, payload: err.response });
+	}
+};
+
+export const addAttendance = (formData) => async (dispatch) => {
+	const config = {
+		headers: {
+			'Content-Type': 'application/json',
+		},
+	};
+
+	try {
+		const res = await axios.post('/api/admin/attendance', formData, config);
+
+		dispatch({ type: ADD_ATTENDANCE, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: ATTENDANCE_ERROR, payload: err });
 	}
 };
 

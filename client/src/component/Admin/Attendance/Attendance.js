@@ -6,11 +6,12 @@ import GetAttendance from './GetAttendance';
 import '../Layout/student.css';
 
 import { connect } from 'react-redux';
-import { getStudents } from '../../../Actions/adminActions';
+import { getStudents, getAttendance } from '../../../Actions/adminActions';
 
-const Attendance = ({ getStudents, students }) => {
+const Attendance = ({ getStudents, getAttendance, students, attendance }) => {
 	useEffect(() => {
 		getStudents();
+		getAttendance();
 	}, []);
 
 	return (
@@ -20,7 +21,7 @@ const Attendance = ({ getStudents, students }) => {
 				<div className='App'>
 					<div className='student-flex'>
 						<div className='students-left'>
-							<GetAttendance />
+							<GetAttendance attendance={attendance} />
 						</div>
 						<div className='students-right'>
 							<AddAttendance students={students} />
@@ -34,11 +35,16 @@ const Attendance = ({ getStudents, students }) => {
 
 Attendance.propTypes = {
 	getStudents: PropTypes.func.isRequired,
+	getAttendance: PropTypes.func.isRequired,
 	students: PropTypes.array,
+	attendance: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
 	students: state.admin.students,
+	attendance: state.admin.attendance,
 });
 
-export default connect(mapStateToProps, { getStudents })(Attendance);
+export default connect(mapStateToProps, { getStudents, getAttendance })(
+	Attendance
+);

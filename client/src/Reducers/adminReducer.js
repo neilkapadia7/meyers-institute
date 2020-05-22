@@ -9,6 +9,9 @@ import {
 	CREATE_STUDENT,
 	STUDENT_ERROR,
 	GET_STUDENTS,
+	ADD_ATTENDANCE,
+	ATTENDANCE_ERROR,
+	GET_ATTENDANCE,
 } from '../Actions/types';
 
 const initialState = {
@@ -18,6 +21,7 @@ const initialState = {
 	admin_user: null,
 	admin_error: null,
 	students: null,
+	attendance: null,
 };
 
 export default (state = initialState, action) => {
@@ -83,9 +87,27 @@ export default (state = initialState, action) => {
 				students:
 					state.students === null
 						? [action.payload]
-						: [...state.students, action.payload],
+						: [action.payload, ...state.students],
+			};
+		case GET_ATTENDANCE:
+			return {
+				...state,
+				attendance: action.payload,
 			};
 		case STUDENT_ERROR:
+			return {
+				...state,
+				admin_error: action.payload,
+			};
+		case ADD_ATTENDANCE:
+			return {
+				...state,
+				attendance:
+					state.attendance === null
+						? [action.payload]
+						: [action.payload, ...state.attendance],
+			};
+		case ATTENDANCE_ERROR:
 			return {
 				...state,
 				admin_error: action.payload,

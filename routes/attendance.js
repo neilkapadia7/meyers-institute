@@ -18,6 +18,9 @@ router.get('/', adminMiddleware, async (req, res) => {
 	}
 });
 
+// @route   POST    api/admin/attendance
+// @desc    Add Attendance
+// @access  Private
 router.post(
 	'/',
 	[
