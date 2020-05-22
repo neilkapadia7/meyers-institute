@@ -23,3 +23,6 @@ export const GET_STUDENTS = 'GET_STUDENTS';
 export const GET_ATTENDANCE = 'GET_ATTENDANCE';
 export const ADD_ATTENDANCE = 'ADD_ATTENDANCE';
 export const ATTENDANCE_ERROR = 'ATTENDANCE_ERROR';
+export const ADD_NOTES = 'ADD_NOTES';
+export const GET_NOTES = 'GET_NOTES';
+export const NOTES_ERROR = 'NOTES_ERROR';

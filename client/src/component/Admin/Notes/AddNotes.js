@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { addNotes } from '../../../Actions/adminActions';
+import { connect } from 'react-redux';
 
-const AddNotes = (props) => {
+const AddNotes = ({ addNotes }) => {
 	const [file, setFile] = useState();
 	const [uploadedFile, setUploadedFile] = useState(null);
 	const [title, setTitle] = useState('');
@@ -19,9 +21,14 @@ const AddNotes = (props) => {
 		} else if (title === '') {
 			console.log('No title');
 		} else {
-			console.log(uploadedFile.filePath);
-			console.log(uploadedFile.fileName);
-			console.log(title);
+			addNotes({
+				path: uploadedFile.filePath,
+				title,
+			});
+
+			console.log('Successful');
+			setUploadedFile(null);
+			setTitle('');
 		}
 	};
 
@@ -52,7 +59,6 @@ const AddNotes = (props) => {
 
 				const { fileName, filePath } = res.data;
 
-				console.log(filePath);
 				setUploadedFile({ fileName, filePath });
 			} catch (err) {
 				if (err.response.status === 500) {
@@ -95,6 +101,8 @@ const AddNotes = (props) => {
 	);
 };
 
-AddNotes.propTypes = {};
+AddNotes.propTypes = {
+	addNotes: PropTypes.func.isRequired,
+};
 
-export default AddNotes;
+export default connect(null, { addNotes })(AddNotes);

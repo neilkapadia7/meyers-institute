@@ -12,6 +12,8 @@ import {
 	ADD_ATTENDANCE,
 	ATTENDANCE_ERROR,
 	GET_ATTENDANCE,
+	ADD_NOTES,
+	NOTES_ERROR,
 } from '../Actions/types';
 
 const initialState = {
@@ -22,6 +24,7 @@ const initialState = {
 	admin_error: null,
 	students: null,
 	attendance: null,
+	notes: null,
 };
 
 export default (state = initialState, action) => {
@@ -108,6 +111,20 @@ export default (state = initialState, action) => {
 						: [action.payload, ...state.attendance],
 			};
 		case ATTENDANCE_ERROR:
+			return {
+				...state,
+				admin_error: action.payload,
+			};
+		// Notes
+		case ADD_NOTES:
+			return {
+				...state,
+				notes:
+					state.notes === null
+						? [action.payload]
+						: [action.payload, ...state.notes],
+			};
+		case NOTES_ERROR:
 			return {
 				...state,
 				admin_error: action.payload,
