@@ -14,6 +14,7 @@ import {
 	GET_ATTENDANCE,
 	ADD_NOTES,
 	NOTES_ERROR,
+	GET_NOTES,
 } from '../Actions/types';
 
 const initialState = {
@@ -123,6 +124,11 @@ export default (state = initialState, action) => {
 					state.notes === null
 						? [action.payload]
 						: [action.payload, ...state.notes],
+			};
+		case GET_NOTES:
+			return {
+				...state,
+				notes: action.payload,
 			};
 		case NOTES_ERROR:
 			return {

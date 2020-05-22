@@ -48,7 +48,7 @@ router.post(
 // @access
 router.get('/', async (req, res) => {
 	try {
-		const notes = await Notes.find().sort(-date);
+		const notes = await Notes.find().sort({ date: -1 });
 
 		res.json(notes);
 	} catch (err) {

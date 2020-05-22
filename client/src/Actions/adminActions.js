@@ -15,6 +15,7 @@ import {
 	GET_ATTENDANCE,
 	NOTES_ERROR,
 	ADD_NOTES,
+	GET_NOTES,
 } from './types';
 import setAdminToken from '../utils/setAdminToken';
 
@@ -122,6 +123,17 @@ export const addNotes = (formData) => async (dispatch) => {
 		const res = await axios.post('/api/notes', formData, config);
 
 		dispatch({ type: ADD_NOTES, payload: res.data });
+	} catch (err) {
+		console.log(err);
+		dispatch({ type: NOTES_ERROR, payload: err });
+	}
+};
+
+export const getNotes = () => async (dispatch) => {
+	try {
+		const res = await axios.get('/api/notes');
+
+		dispatch({ type: GET_NOTES, payload: res.data });
 	} catch (err) {
 		console.log(err);
 		dispatch({ type: NOTES_ERROR, payload: err });
