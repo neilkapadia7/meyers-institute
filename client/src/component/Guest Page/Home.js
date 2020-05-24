@@ -1,6 +1,9 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import './design/guest.css';
+import Image1 from './images/about1.jpg';
+import Image2 from './images/about2.jpg';
+import Image3 from './images/about3.jpg';
 
 const Home = (props) => {
 	return (
@@ -30,7 +33,61 @@ const Home = (props) => {
 							constantly changing and challenging business world.
 						</p>
 					</center>
+					<div className='guest-about-div'>
+						<div className='guest-about-item'>
+							<div className='guest-about-top'>
+								<img src={Image1} alt='Meyers Teaching Institute' />
+							</div>
+							<div className='guest-about-bottom'>
+								<div className='guest-about-padding'>
+									<p className='guest-about-heading'>
+										Understand the situation
+									</p>
+									<p className='guest-about-para'>
+										Lorem Ipsum is simply text of the printing and typesetting
+										industry. Lorem Ipsum has been standard dummy.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div className='guest-about-item'>
+							<div className='guest-about-top'>
+								<img src={Image2} alt='Meyers Teaching Institute' />
+							</div>
+							<div className='guest-about-bottom'>
+								<div className='guest-about-padding'>
+									<p className='guest-about-heading'>
+										Bring the experience to life
+									</p>
+									<p className='guest-about-para'>
+										Lorem Ipsum is simply text of the printing and typesetting
+										industry. Lorem Ipsum has been standard dummy.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div className='guest-about-item'>
+							<div className='guest-about-top'>
+								<img src={Image3} alt='Meyers Teaching Institute' />
+							</div>
+							<div className='guest-about-bottom'>
+								<div className='guest-about-padding'>
+									<p className='guest-about-heading'>
+										Strategise chart the course
+									</p>
+									<p className='guest-about-para'>
+										Lorem Ipsum is simply text of the printing and typesetting
+										industry. Lorem Ipsum has been standard dummy.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+			</div>
+
+			<div className='guest-divider'>
+				<div className='guest-divider-content'></div>
 			</div>
 			<div id='guest-home-sec3'>
 				<div className='Guest-App'>
