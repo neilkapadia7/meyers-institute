@@ -5,7 +5,7 @@ import { addNotes } from '../../../Actions/adminActions';
 import { connect } from 'react-redux';
 
 const AddNotes = ({ addNotes }) => {
-	const [file, setFile] = useState();
+	const [file, setFile] = useState('');
 	const [uploadedFile, setUploadedFile] = useState(null);
 	const [title, setTitle] = useState('');
 
@@ -72,30 +72,44 @@ const AddNotes = ({ addNotes }) => {
 	};
 
 	return (
-		<div>
-			<h2>Add Notes</h2>
+		<div className='add-notes-div'>
+			<h2 className='title-size2'>Add Notes</h2>
 			{uploadedFile === null ? (
-				<div>
-					<input type='file' onChange={onChange} accept='.pdf' />
-					<button onClick={fileUploadHandler}>Upload PDF</button>
+				<div className='file-upload-div'>
+					<input
+						type='file'
+						onChange={onChange}
+						accept='.pdf'
+						className='fileupload'
+					/>
+					<button onClick={fileUploadHandler} className='fileupload-button'>
+						Upload PDF
+					</button>
 				</div>
 			) : (
-				<div>
-					<a href={uploadedFile.filePath} download='true'>
+				<div className='file-upload-div'>
+					<a
+						href={uploadedFile.filePath}
+						download='true'
+						className='fileupload-download'>
 						File Uploaded SuccessFully!
 					</a>
 				</div>
 			)}
 
-			<form onSubmit={onSubmit}>
-				<input
-					type='title'
-					placeholder='Enter Title'
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					required
-				/>
-				<input type='submit' value='submit' />
+			<form onSubmit={onSubmit} className='notes-form'>
+				<div className='notes-input-div'>
+					<label className='notes-label'>Name</label>
+					<input
+						type='title'
+						placeholder='Enter Title'
+						value={title}
+						onChange={(e) => setTitle(e.target.value)}
+						required
+						className='notes-input'
+					/>
+				</div>
+				<input type='submit' value='Submit' className='notes-button' />
 			</form>
 		</div>
 	);

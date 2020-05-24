@@ -24,7 +24,7 @@ const Attendance = ({ getStudents, getAttendance, students, attendance }) => {
 							<GetAttendance attendance={attendance} />
 						</div>
 						<div className='students-right'>
-							<AddAttendance students={students} />
+							<AddAttendance student={students} />
 						</div>
 					</div>
 				</div>

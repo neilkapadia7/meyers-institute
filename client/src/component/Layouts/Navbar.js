@@ -29,13 +29,13 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 	const guestLinks = (
 		<Fragment>
 			<li>
-				<Link to='/'>Home</Link>
+				<a href='#guest-home-sec1'>Home</a>
 			</li>
 			<li>
-				<Link to='/about'>About</Link>
+				<a href='#guest-home-sec2'>About</a>
 			</li>
 			<li>
-				<Link to='/contact'>Contact</Link>
+				<a href='#guest-home-sec4'>Contact</a>
 			</li>
 			<li>
 				<Link to='/login'>Login</Link>

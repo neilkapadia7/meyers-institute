@@ -73,11 +73,7 @@
 .student-button {
 	margin: 15px 0;
 	background: rgb(83, 120, 255);
-	background: linear-gradient(
-		90deg,
-		rgba(83, 120, 255, 1) 0%,
-		rgba(150, 121, 255, 1) 100%
-	);
+	background: linear-gradient(90deg, rgb(87, 123, 250) 0%, #3452ff 100%);
 	color: #ffffff;
 	border: none;
 	padding: 15px 25px;
@@ -85,4 +81,88 @@
 	font-weight: 500;
 	width: 100%;
 	box-shadow: 0 5px 10px rgba(83, 120, 255, 0.4);
+}
+
+/* Notes */
+.add-notes-div {
+	width: 430px;
+	margin: 0 auto;
+}
+.file-upload-div {
+	width: 100%;
+	margin-bottom: 20px;
+}
+.fileupload {
+	width: 100%;
+	margin-bottom: 10px;
+	font-size: 13px;
+	font-weight: 600;
+}
+.fileupload-button {
+	background-color: #3452ff;
+	border: none;
+	outline: none;
+	padding: 7px 10px;
+	color: #ffffff;
+	font-weight: 600;
+	font-size: 12px;
+	margin-bottom: 10px;
+}
+.fileupload-download {
+	text-decoration: none;
+	color: #3452ff;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 24px;
+}
+.notes-form {
+	width: 100%;
+}
+.notes-input-div {
+	width: 100%;
+	margin: 15px 0;
+}
+.notes-label {
+	font-size: 14px;
+	font-weight: 600;
+	color: rgb(78, 78, 78);
+}
+.notes-input {
+	width: 100%;
+	outline: none;
+	border: 0.8px solid #c9d0d4;
+	height: 35px;
+	margin-top: 9px;
+	font-size: 13px;
+	color: rgb(88, 88, 88);
+	font-weight: 400;
+}
+
+.notes-button {
+	background: rgb(83, 120, 255);
+	background: linear-gradient(90deg, rgb(87, 123, 250) 0%, #3452ff 100%);
+	color: #ffffff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 15px;
+	font-weight: 500;
+	width: 100%;
+	box-shadow: 0 5px 10px rgba(83, 120, 255, 0.4);
+}
+.notes-title {
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 35px;
+	margin: 0;
+}
+.notes-date {
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 20px;
+}
+.notes-delete {
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 25px;
+	color: #ff1053;
 }

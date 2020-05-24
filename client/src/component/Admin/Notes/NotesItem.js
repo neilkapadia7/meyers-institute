@@ -11,13 +11,21 @@ const NotesItem = ({ notes, deleteNotes }) => {
 
 	return (
 		<div className='student-item'>
-			<h3 className='student-name'>{notes.title}</h3>
-			<a href={notes.path} download>
+			<h3 className='notes-title'>{notes.title}</h3>
+			<a
+				href={notes.path}
+				download={notes.title}
+				className='fileupload-download'>
 				Download
 			</a>
 			<br />
-			<Moment format='MMMM D YYYY'>{notes.date}</Moment>
-			<a onClick={Delete}>Delete</a>
+			<Moment format='MMMM d, YYYY' className='notes-date'>
+				{notes.date}
+			</Moment>
+			<br />
+			<a onClick={Delete} className='notes-delete'>
+				Delete
+			</a>
 		</div>
 	);
 };
