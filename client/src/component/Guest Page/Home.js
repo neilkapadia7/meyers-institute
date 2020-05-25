@@ -107,7 +107,13 @@ const Home = (props) => {
 			</div>
 
 			<div className='guest-divider'>
-				<div className='guest-divider-content'></div>
+				<div className='guest-divider-content'>
+					<p className='guest-divider-small-heading'>TESTIMONIAL</p>
+					<p className='guest-divider-heading'>
+						Beautiful and easy to use UI, professional animations and drag &amp;
+						drop feature
+					</p>
+				</div>
 			</div>
 			<div id='guest-home-sec3'>
 				<div className='Guest-App'>
@@ -271,6 +277,12 @@ const Home = (props) => {
 						</div>
 					</div>
 				</div>
+			</div>
+			<div className='guest-footer'>
+				<p className='guest-footer-content'>
+					&copy; Meyers Teaching Institute. Developed and Maintained by{' '}
+					<a href='https://www.neyatechdevelopers.com/'>NeyaTech Developers</a>
+				</p>
 			</div>
 		</Fragment>
 	);

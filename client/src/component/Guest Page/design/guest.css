@@ -141,7 +141,35 @@
 	width: 100%;
 	display: table;
 	background-color: #ffffff;
-	/* background-image: url('../images/home-sec1.png'); */
+	background-image: url('../images/divider.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+}
+.guest-divider-content {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(46, 46, 46, 0.7);
+}
+.guest-divider-small-heading {
+	color: rgb(224, 224, 224);
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 20px;
+	margin: 0;
+	text-align: center;
+	padding-top: 100px;
+}
+.guest-divider-heading {
+	font-size: 28px;
+	color: #ffffff;
+	text-align: center;
+	font-weight: 500;
+	width: 50%;
+	margin: 0 auto;
+	padding-top: 30px;
+	padding-bottom: 60px;
 }
 
 /* Sec3 Services*/
@@ -207,7 +235,7 @@
 .Guest-contact-Main-App {
 	width: 90%;
 	margin: 60px auto;
-	height: 600px;
+	height: 500px;
 	box-shadow: 0 30px 135px rgba(0, 0, 0, 0.1);
 	display: table;
 }
@@ -228,7 +256,7 @@
 .guest-contact-overlay {
 	height: 100%;
 	width: 100%;
-	background-color: rgba(31, 31, 31, 0.6);
+	background-color: rgba(31, 31, 31, 0.8);
 }
 .guest-form {
 	width: 80%;
@@ -294,4 +322,21 @@
 .guest-contact-details-para {
 	color: #b8b8b8;
 	font-size: 14px;
+}
+
+.guest-footer {
+	background-color: #f7f7f7;
+	display: table;
+	width: 100%;
+}
+.guest-footer-content {
+	height: 65px;
+	line-height: 65px;
+	text-align: center;
+	color: #777777;
+}
+.guest-footer-content a {
+	color: #3452ff;
+	text-decoration: none;
+	font-weight: 400;
 }
