@@ -4,8 +4,10 @@ import './design/guest.css';
 import Image1 from './images/about1.jpg';
 import Image2 from './images/about2.jpg';
 import Image3 from './images/about3.jpg';
+import { connect } from 'react-redux';
+import { addQuery } from '../../Actions/guestActions';
 
-const Home = (props) => {
+const Home = ({ query, error, addQuery }) => {
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
 	const [phone, setPhone] = useState('');
@@ -13,17 +15,26 @@ const Home = (props) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log({
-			name,
-			email,
-			phone,
-			message,
-		});
+		if (name === '' || email === '' || phone === '' || message === '') {
+		} else {
+			console.log({
+				name,
+				email,
+				phone,
+				message,
+			});
+			addQuery({
+				name,
+				email,
+				phone,
+				message,
+			});
 
-		setName('');
-		setEmail('');
-		setPhone('');
-		setMessage('');
+			setName('');
+			setEmail('');
+			setPhone('');
+			setMessage('');
+		}
 	};
 
 	return (
@@ -154,7 +165,7 @@ const Home = (props) => {
 						</div>
 						<div className='guest-services-item'>
 							<div className='guest-services-padding'>
-								<i class='fas fa-book guest-services-icon'></i>
+								<i className='fas fa-book guest-services-icon'></i>
 								<p className='guest-services-title'>Massive Element Library</p>
 								<p className='guest-services-para'>
 									Aenean massa. Cum sociis natoque penatibus et magnis dis
@@ -164,7 +175,7 @@ const Home = (props) => {
 						</div>
 						<div className='guest-services-item'>
 							<div className='guest-services-padding'>
-								<i class='fas fa-book guest-services-icon'></i>
+								<i className='fas fa-book guest-services-icon'></i>
 								<p className='guest-services-title'>Great Documentation</p>
 								<p className='guest-services-para'>
 									Aenean massa. Cum sociis natoque penatibus et magnis dis
@@ -174,7 +185,7 @@ const Home = (props) => {
 						</div>
 						<div className='guest-services-item'>
 							<div className='guest-services-padding'>
-								<i class='fas fa-book guest-services-icon'></i>
+								<i className='fas fa-book guest-services-icon'></i>
 								<p className='guest-services-title'>Killer Design Work</p>
 								<p className='guest-services-para'>
 									Aenean massa. Cum sociis natoque penatibus et magnis dis
@@ -235,6 +246,7 @@ const Home = (props) => {
 											placeholder='Name'
 											className='guest-input'
 											value={name}
+											required
 											onChange={(e) => setName(e.target.value)}
 										/>
 									</div>
@@ -245,6 +257,7 @@ const Home = (props) => {
 											placeholder='Email ID'
 											className='guest-input'
 											value={email}
+											required
 											onChange={(e) => setEmail(e.target.value)}
 										/>
 									</div>
@@ -255,6 +268,7 @@ const Home = (props) => {
 											placeholder='Phone Number'
 											className='guest-input'
 											value={phone}
+											required
 											onChange={(e) => setPhone(e.target.value)}
 										/>
 									</div>
@@ -264,6 +278,7 @@ const Home = (props) => {
 											placeholder='Write your message.....'
 											className='guest-textarea'
 											value={message}
+											required
 											onChange={(e) => setMessage(e.target.value)}
 										/>
 									</div>
@@ -288,6 +303,15 @@ const Home = (props) => {
 	);
 };
 
-Home.propTypes = {};
+Home.propTypes = {
+	query: PropTypes.string,
+	error: PropTypes.string,
+	addQuery: PropTypes.func.isRequired,
+};
 
-export default Home;
+const mapStateToProps = (state) => ({
+	query: state.guest.query,
+	error: state.guest.error,
+});
+
+export default connect(mapStateToProps, { addQuery })(Home);

@@ -21,6 +21,7 @@ app.use('/api/admin/upload', require('./file'));
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/guest', require('./routes/guest'));
 
 const PORT = process.env.PORT || 5000;
 

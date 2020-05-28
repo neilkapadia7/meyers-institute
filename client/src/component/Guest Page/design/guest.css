@@ -340,3 +340,6 @@
 	text-decoration: none;
 	font-weight: 400;
 }
+
+@media screen and (max-width: 1300px) {
+}
