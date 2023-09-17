@@ -245,8 +245,9 @@ a:hover {
 		height: 100%;
 		display: none;
 		width: 100%;
-		position: relative;
+		/* position: relative; */
 		margin-top: 60px;
+		float: none;
 	}
 	.menu li {
 		border-bottom: 0.5px #333;

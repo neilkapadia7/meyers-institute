@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -38,8 +38,8 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 
 	const guestLinks = (
 		<Fragment>
-			<input class="menu-btn" type="checkbox" id="menu-btn" onClick={toggleClass}/>
-			<label class="menu-icon" for="menu-btn" onClick={() =>  setIsNabarActive(!isNabarActive)}><span class="navicon" onClick={() =>  setIsNabarActive(!isNabarActive)}></span></label>
+			<input class="menu-btn" type="checkbox" id="menu-btn"/>
+			<label class="menu-icon" for="menu-btn" onClick={() => toggleClass()}><span class="navicon"></span></label>
 			<ul class={`menu ${isNabarActive && 'active-menu'}`}>
 				<li>
 					<a href='/#guest-home-sec1'>Home</a>
