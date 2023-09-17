@@ -323,7 +323,11 @@
 	color: #b8b8b8;
 	font-size: 14px;
 }
-
+.guest-contact-details-para a{
+	color: #b8b8b8;
+	font-size: 14px;
+	text-decoration: none;
+}
 .guest-footer {
 	background-color: #f7f7f7;
 	display: table;
@@ -341,5 +345,81 @@
 	font-weight: 400;
 }
 
+.header .menu-btn {
+	display: none;
+}
+
 @media screen and (max-width: 1300px) {
+}
+
+
+@media only screen and (max-width:800px){
+	.guest-small-title {
+		font-size: 10px;
+	}
+	.guest-title {
+		font-size: 40px;
+		line-height: 60px;
+		width: 95%;
+	}
+	.guest-button-white {
+		font-size: 10px;
+		line-height: 15px;
+		padding: 10px 22px;
+		letter-spacing: 1.5px;
+	}
+	.Guest-App {
+		width: 90%;
+		margin: 80px auto;
+	}
+	.guest-description {
+		font-size: 20px;
+		line-height: 25px;
+		width: 85%;
+	}
+
+	.guest-about-div {
+		display: block;
+		margin: 90px 0 30px 0;
+	}
+	.guest-about-item {
+		width: 90%;
+		height: 450px;
+		margin: 50px auto;
+	}
+
+	.guest-divider-heading {
+		width: 90%;
+	}
+
+
+	.guest-services-div {
+		display: block;
+	}
+	.guest-services-item {
+		width: 90%;
+	}
+
+	.Guest-contact-Main-App {
+		width: 90%;
+		margin: 60px auto;
+	}
+	.Guest-Contact-App {
+		display: block;
+	}
+	.guest-contact-left {
+		width: 100%;
+	}
+	.guest-contact-right {
+		width: 100%;
+	}
+	.guest-contact-details-main {
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+	.guest-footer-content {
+		height: 40px;
+		line-height: 40px;
+		display: table;
+	}
 }

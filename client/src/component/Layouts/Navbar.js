@@ -1,10 +1,20 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logout } from '../../Actions/authActions';
+import Icon from '../../statics/icon.jpeg';
 
 const Navbar = ({ auth: { isAuthenticated }, logout }) => {
+	const [isNabarActive, setIsNabarActive] = useState(false);
+
+	const toggleClass = () => {
+		setIsNabarActive(!isNabarActive);
+		const element = document.getElementById('ul');
+		if (element) {
+			element.classList.add('active-menu');
+		}
+	};
 	const Logout = () => {
 		logout();
 	};
@@ -28,28 +38,35 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 
 	const guestLinks = (
 		<Fragment>
-			<li>
-				<a href='/#guest-home-sec1'>Home</a>
-			</li>
-			<li>
-				<a href='/#guest-home-sec2'>About</a>
-			</li>
-			<li>
-				<a href='/#guest-home-sec4'>Contact</a>
-			</li>
-			<li>
+			<input class="menu-btn" type="checkbox" id="menu-btn" onClick={toggleClass}/>
+			<label class="menu-icon" for="menu-btn" onClick={() =>  setIsNabarActive(!isNabarActive)}><span class="navicon" onClick={() =>  setIsNabarActive(!isNabarActive)}></span></label>
+			<ul class={`menu ${isNabarActive && 'active-menu'}`}>
+				<li>
+					<a href='/#guest-home-sec1'>Home</a>
+				</li>
+				<li>
+					<a href='/#guest-home-sec2'>About</a>
+				</li>
+				<li>
+					<a href='/#guest-home-sec4'>Contact</a>
+				</li>
+			</ul>
+			{/* <li>
 				<Link to='/login'>Login</Link>
-			</li>
+			</li> */}
 		</Fragment>
 	);
 
 	return (
 		<Fragment>
 			<header>
-				<div className='logo'>Logo</div>
-				<nav>
-					<ul>{isAuthenticated ? authLinks : guestLinks}</ul>
-				</nav>
+				<div className='logo'>
+					<img src={Icon} />
+				</div>
+				{/* <nav> */}
+					{guestLinks}
+					{/* <ul>{isAuthenticated ? authLinks : guestLinks}</ul> */}
+				{/* </nav> */}
 			</header>
 		</Fragment>
 	);
