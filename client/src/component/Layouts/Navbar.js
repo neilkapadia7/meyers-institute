@@ -1,12 +1,22 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../../Actions/authActions';
 import Icon from '../../statics/icon.jpeg';
 
 const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 	const [isNabarActive, setIsNabarActive] = useState(false);
+	const [isMeyers, setIsMeyers] = useState(false);
+	const location = useLocation();
+
+	useEffect(() => {
+		console.log('location', location);
+		if(location.pathname == "/meyers-institute") {
+			setIsMeyers(true);
+		}
+	}, [location]);
+
 
 	const toggleClass = () => {
 		setIsNabarActive(!isNabarActive);
@@ -61,7 +71,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 		<Fragment>
 			<header>
 				<div className='logo'>
-					<img src={Icon} />
+					{isMeyers ? <img src={Icon} /> : "Company Name" }
 				</div>
 				{/* <nav> */}
 					{guestLinks}
