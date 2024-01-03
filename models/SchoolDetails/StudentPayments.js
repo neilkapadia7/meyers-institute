@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Incomplete
 const StudentPayments = mongoose.Schema({
-    isPaid: {type: Boolean, default},
+    isPaid: {type: Boolean, default: false},
     batchId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Batches",
