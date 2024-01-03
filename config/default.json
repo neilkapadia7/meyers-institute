@@ -1,4 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://im_neil17:neilkap7@meyers-clases-vxlrp.mongodb.net/test?retryWrites=true&w=majority",
+	"mongoURI": "mongodb+srv://im_neil17:<password>@test-school-management.auyb7gk.mongodb.net/?retryWrites=true&w=majority",
 	"jwtSecret": "secret-key-meyers"
 }

@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const fileUpload = require('express-fileupload');
+require("dotenv").config();
 
 const app = express();
 
@@ -23,6 +24,6 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/guest', require('./routes/guest'));
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => console.log(`Server Started on Port Number: ${PORT}`));
