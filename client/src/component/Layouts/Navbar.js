@@ -11,7 +11,6 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
 	const location = useLocation();
 
 	useEffect(() => {
-		console.log('location', location);
 		if(location.pathname == "/meyers-institute") {
 			setIsMeyers(true);
 		}
