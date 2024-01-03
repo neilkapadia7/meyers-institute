@@ -17,6 +17,13 @@ const AdminSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-});
+},{
+    timestamps: {
+      createdAt: true,
+      updatedAt: true,
+    },
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  });
 
 module.exports = mongoose.model('admin', AdminSchema);

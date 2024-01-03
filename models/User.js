@@ -17,6 +17,30 @@ const UserSchema = mongoose.Schema({
 		type: Date,
 		default: Date.now,
 	},
-});
+	isFreeUser: {
+		type: Boolean,
+		default: false
+	},
+	isPremiumUser: {
+		type: Boolean,
+		default: false
+	},
+	referralCode: {
+		type: String
+	},
+	isAdminUser: {
+		type: Boolean,
+		default: false
+	}
+}, 
+{
+    timestamps: {
+      createdAt: true,
+      updatedAt: true,
+    },
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+  );
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);
