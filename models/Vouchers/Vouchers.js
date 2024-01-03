@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Batches = mongoose.Schema({
+const Vouchers = mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -9,7 +9,9 @@ const Batches = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
     }, // Added by which user 
-    coursePrice: {type: Number},
+    limit: {type: Number, default: 1},
+    isActive: {type: Boolean, default: true},
+    expiryDate: {type: Date}
 }, 
 {
     timestamps: {
@@ -21,4 +23,4 @@ const Batches = mongoose.Schema({
 }
 );
 
-module.exports = mongoose.model('Batches', Batches);
+module.exports = mongoose.model('Vouchers', Vouchers);

@@ -15,7 +15,9 @@ const StudentPayments = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
     }, // Added for which login 
-
+    totalPaidAmount: {type: Number, default: 0},
+    totalPendingAmount: {type: Number},
+    discountedAmount: {type: Number, default: 0},
 }, 
 {
     timestamps: {
