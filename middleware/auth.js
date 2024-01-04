@@ -11,7 +11,9 @@ module.exports = async function (req, res, next) {
 	try {
 		const decoded = jwt.verify(token, config.get('jwtSecret'));
 
-		req.user = decoded.user;
+		req.user = decoded.user._id;
+		req.userId = decoded.user._id;
+		// req.email = decoded.user;
 
 		req.isAdminUser =false;
 		let checkUser = await Users.findById({_id: req.user}, {isAdminUser});

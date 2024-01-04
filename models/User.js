@@ -15,7 +15,7 @@ const UserSchema = mongoose.Schema({
 	},
 	date: {
 		type: Date,
-		default: Date.now,
+		default: Date.now(),
 	},
 	isFreeUser: {
 		type: Boolean,
@@ -31,7 +31,8 @@ const UserSchema = mongoose.Schema({
 	isAdminUser: {
 		type: Boolean,
 		default: false
-	}
+	},
+	totalReferrals: {type: Number, default: 0}
 }, 
 {
     timestamps: {

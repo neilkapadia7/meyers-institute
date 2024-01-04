@@ -10,6 +10,7 @@ const Vouchers = mongoose.Schema({
         ref: "Users",
     }, // Added by which user 
     limit: {type: Number, default: 1},
+    redeemedCount: {type: Number},
     isActive: {type: Boolean, default: true},
     expiryDate: {type: Date}
 }, 

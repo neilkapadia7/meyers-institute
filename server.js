@@ -16,14 +16,8 @@ app.get('/', (req, res) => {
 
 app.use(fileUpload());
 
-app.use('/api/admin', require('./routes/admin'));
-app.use('/api/admin/auth', require('./routes/adminauth'));
-app.use('api/admin/attendance', require('./routes/attendance'));
-app.use('/api/admin/upload', require('./file'));
-app.use('/api/notes', require('./routes/notes'));
-app.use('/api/users', require('./routes/users'));
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/guest', require('./routes/guest'));
+app.use('/api', require('@routes/api'));
+app.use('/admin/upload', require('./file'));
 
 const PORT = process.env.PORT || 3001;
 
