@@ -17,6 +17,7 @@ router.use('/notes', require('@routes/notes'));
 router.use('/users', require('@routes/users'));
 router.use('/auth', require('@routes/auth'));
 router.use('/guest', require('@routes/guest'));
+router.use('/voucher', require('@routes/Vouchers'));
 
 module.exports = router;
 
