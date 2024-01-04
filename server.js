@@ -2,6 +2,7 @@ const express = require('express');
 const connectDB = require('./config/db');
 const fileUpload = require('express-fileupload');
 require("dotenv").config();
+require("module-alias/register");
 
 const app = express();
 

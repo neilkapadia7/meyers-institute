@@ -9,6 +9,17 @@
 		"client": "npm start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
+	"_moduleAliases": {
+		"@root": ".",
+		"@controllers": "./controllers",
+		"@models": "./models",
+		"@middleware": "./middleware",
+		"@service": "./service",
+		"@routes": "./routes",
+		"@config": "./config",
+		"@constants": "./constants"
+	  },
+
 	"author": "Neil Kapadia",
 	"license": "ISC",
 	"dependencies": {
@@ -20,6 +31,7 @@
 		"express-fileupload": "^1.1.7-alpha.3",
 		"express-validator": "^6.4.1",
 		"jsonwebtoken": "^8.5.1",
+		"module-alias": "^2.2.3",
 		"mongoose": "^5.9.12",
 		"uuidv4": "^6.0.8"
 	},
