@@ -19,6 +19,7 @@ router.use('/auth', require('@routes/auth')); // Done
 router.use('/guest', require('@routes/guest'));
 router.use('/voucher', require('@routes/Vouchers')); // Done
 router.use('/student', require('@routes/Students')); // Done
+router.use('/batch', require('@routes/Batches')); // Done
 
 module.exports = router;
 

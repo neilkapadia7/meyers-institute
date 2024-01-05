@@ -2,10 +2,14 @@ const Users = require("@models/User");
 const Vouchers = require("@models/Vouchers/Vouchers");
 const Students = require("@models/SchoolDetails/Students");
 const Batches = require("@models/SchoolDetails/Batches");
+const moment = require("moment");
 
 
 module.exports = {
-    // POST api/student/get
+  // ----------------------------------------------------------------------------------------
+  // Students
+
+  // POST api/student/get
     async getAllStudents(req, res) {
       try {
         let { page, search, isCSV } = req.body;
@@ -46,7 +50,7 @@ module.exports = {
       }
     },
 
-    // POST api/student/getByBatch/:voucherId
+    // POST api/student/getByBatch
     async getStudentByBatch(req, res) {
       try {
         let { page, search, isCSV, batchId } = req.body;
@@ -145,4 +149,120 @@ module.exports = {
         res.status(500).json({ msg: 'Server Error' });
       }
     },
+
+
+  // ----------------------------------------------------------------------------------------
+  // Batch
+
+  // POST api/batch/get
+  async getAllBatches(req, res) {
+    try {
+      let { page, search, isCSV } = req.body;
+
+      let query = {};
+
+      if(!req.isAdminUser) {
+        let user = await Users.findById(req.userId);
+
+        if (!user) {
+            return res.status(400).json({ msg: 'Invalid User' });
+        }
+
+        query = {...query, userId: req.userId}; // return the vouchers created by a single user
+      }
+
+      if(search) {
+          query = {...query, name: { $regex: new RegExp(search, 'i') } };
+      }
+
+      let pageNo = 1;
+      if (page) {
+          pageNo = page;
+      }
+
+      let total = await Batches.countDocuments(query);
+      let batches = await Batches.find(query)
+        .skip(25 * pageNo - 25)
+        .limit(isCSV ? total : 25)
+        .sort({createdAt:-1})
+        .lean(); 
+
+      res.status(200).json(batches);
+    } 
+    catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+
+  // Get api/batch/get/:batchId
+  async getBatch(req, res) {
+    try {
+      let { batchId } = req.params;
+      let batch = await Batches.findOne({_id: batchId});
+
+      res.status(200).json(batch);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+
+  // POST api/batch/add
+  async addBatch(req, res) {
+    try {
+      const {name, startDate, endDate, coursePrice} = req.body;
+
+      let checkBatch = await Batches.findOne({name, userId: req.userId});
+      if(checkBatch) {
+        return res.status(400).json({ msg: 'Batch Already Exists' });
+      }
+
+      if(moment(startDate) >= moment(endDate)) {
+        return res.status(400).json({ msg: 'Start Date cannot be greater than or equal to End Date' });
+      }
+
+      let batch = await new Batches({...req.body, userId: req.userId });
+      res.status(200).json(batch);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+
+  // POST api/batch/update
+  async updateBatch(req, res) {
+    try {
+      const {batchId, name, isActive, startDate, endDate, coursePrice} = req.body;
+
+      let checkBatch = await Batches.findOne({_id: batchId});
+      if(!checkBatch) {
+        return res.status(400).json({ msg: 'Student Not Found' });
+      }
+
+      if(moment(startDate) >= moment(endDate)) {
+        return res.status(400).json({ msg: 'Start Date cannot be greater than or equal to End Date' });
+      }
+
+      checkBatch.startDate = startDate;
+      checkBatch.endDate = endDate;
+
+      if(req.body.hasOwnProperty('isActive')) {
+        checkBatch.isActive = isActive;
+      }
+
+      if(req.body.hasOwnProperty('coursePrice')) {
+        checkBatch.coursePrice = coursePrice;
+      }
+
+      await checkBatch.save();
+      res.status(200).json(checkBatch);
+    } 
+    catch (err) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
 };

@@ -10,6 +10,9 @@ const Batches = mongoose.Schema({
         ref: "Users",
     }, // Added by which user 
     coursePrice: {type: Number},
+    startDate: {type: Date},
+    endDate: {type: Date},
+    isActive: {type: Boolean, default: true}
 }, 
 {
     timestamps: {

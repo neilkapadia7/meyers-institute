@@ -50,7 +50,7 @@ router.post(
 router.post(
 	'/updateStudent',
 	[
-		check('studentid', 'Please enter studentId Date').isString(),
+		check('studentId', 'Please enter studentId Date').isString(),
 		// check('isActive', 'Please enter Active State').optional().isBoolean(),
 		// check('limit', 'Please enter limit').optional().isNumeric(),
 	],

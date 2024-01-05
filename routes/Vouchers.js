@@ -1,7 +1,4 @@
 const express = require('express');
-const config = require('config');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
