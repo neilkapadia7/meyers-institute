@@ -1,6 +1,6 @@
 const Users = require("@models/User");
 const Vouchers = require("@models/Vouchers/Vouchers");
-
+const moment = require("moment");
 
 module.exports = {
     // Post -  api/voucher/get
@@ -70,63 +70,34 @@ module.exports = {
     // Post -  api/voucher/add
     // Add new voucher
     async addVoucher(req, res) {
-        const { name, email, password, referralCode } = req.body;
-
 		try {
-			let user = await Users.findOne({ email });
+            let {expiryDate, name, userId} = req.body;
 
-			if (user) {
-				return res.status(400).json({ msg: 'User with email already exists' });
-			}
-
-            if(referralCode) {
-                let checkVoucherValidity = await Vouchers.findOne({name: referralCode});
-                if(!checkVoucherValidity) {
-                    return res.status(400).json({ msg: 'Invalid Voucher/Referral Code' });
-                }
-
-                let currentDate = new Date();
-                if(currentDate > expiryDate) {
-                    return res.status(400).json({ msg: 'Voucher has expired' });
-                }
-                if(currentDate > checkVoucherValidity.expiryDate) {
-                    return res.status(400).json({ msg: 'Voucher has expired' });
-                }
-                if(!checkVoucherValidity.isActive) {
-                    return res.status(400).json({ msg: 'Voucher is not Active' });
-                }
-                if(checkVoucherValidity.redeemedCount == checkVoucherValidity.limit) {
-                    return res.status(400).json({ msg: 'Voucher limit exceeded' });
-                }
-
-                let referralUser = await Users.findById(checkVoucherValidity.userId);
-                if(!referralUser) {
-                    return res.status(400).json({ msg: 'Referred User not found' });
-                }
-
-                referralUser.totalReferrals += 1;
-                await referralUser.save();
-
-                const salt = await bcrypt.genSalt(10);
-
-			    let newPassword = await bcrypt.hash(password, salt);
-
-                let newUser = await new Users({
-                    name,
-                    email,
-                    referralCode,
-                    password: newPassword,
-                    // isAdminUser,
-                    isPremiumUser,
-                    isFreeUser,
-                }).save()
-
-                // instead of sharing the password in the response try sharing it in an email
-                return res.status(200).json({ 
-                    ...newUser,
-                    password
-                });
+            if(!name) {
+                return res.status(400).json({message: "Enter Valid Name"});
             }
+
+            if(moment(expiryDate) < moment()) {
+                return res.status(400).json({message: "Enter Valid Expiry Date"});
+            }
+
+            let checkUser = await Users.findById(userId);
+            if(!checkUser) {
+                return res.status(400).json({message: "Invalid User"});
+            }
+
+            let checkVoucher = await Vouchers.findOne({name: { '$regex' : name, '$options' : 'i'}});
+            if(!checkVoucher) {
+                return res.status(400).json({message: "Voucher Name is already taken"});
+            }
+
+            let voucher = await new Vouchers({
+                expiryDate,
+                name,
+                userId,
+            })
+
+            return res.status(200).json(voucher);
 			
 		} catch (err) {
 			console.error(err.message);
@@ -138,7 +109,7 @@ module.exports = {
     // Update Voucher
     async updateVoucher(req, res, user) {
         try {
-            const {password} = req.body;
+            const {expiryDate, name, userId} = req.body;
             const salt = await bcrypt.genSalt(10);
 
 			let newPassword = await bcrypt.hash(password, salt);

@@ -26,8 +26,8 @@ router.get('/get/:voucherId', auth, VoucherController.getVoucher);
 router.post(
 	'/add',
 	[
-		check('name', 'Please Include a Valid Email Id').isString(),
-		check('expiryDate', 'Please enter Expiry Date'),
+		check('name', 'Please Include a Name').isString(),
+		check('expiryDate', 'Please enter Expiry Date').isString(),
 	],
     auth,
 	async (req, res) => {
