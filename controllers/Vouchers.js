@@ -36,7 +36,7 @@ module.exports = {
                 .lean();
 
             return res.status(200).json(vouchers);
-            
+
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).json({ msg: 'Server Error' });
@@ -45,7 +45,26 @@ module.exports = {
 
     // api/voucher/get/:voucherId
     async getVoucher (req, res) {
+        try {
+            let query = {_id: req.params.voucherId};
+            if(!req.isAdminUser) {
+                let user = await Users.findById(req.userId);
 
+                if (!user) {
+                    return res.status(400).json({ msg: 'Invalid User' });
+                }
+
+                query = {...query, userId: req.userId}; // return the vouchers created by a single user
+            }
+
+            let voucher = await Vouchers.findOne(query);
+
+            return res.status(200).json(voucher);
+
+		} catch (err) {
+			console.error(err.message);
+			res.status(500).json({ msg: 'Server Error' });
+		}
     },
 
     // Post -  api/voucher/add
