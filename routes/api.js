@@ -15,9 +15,10 @@ router.use('/admin/auth', require('@routes/adminauth'));
 router.use('/admin/attendance', require('@routes/attendance'));
 router.use('/notes', require('@routes/notes'));
 router.use('/users', require('@routes/users'));
-router.use('/auth', require('@routes/auth'));
+router.use('/auth', require('@routes/auth')); // Done
 router.use('/guest', require('@routes/guest'));
-router.use('/voucher', require('@routes/Vouchers'));
+router.use('/voucher', require('@routes/Vouchers')); // Done
+router.use('/student', require('@routes/Students')); // Done
 
 module.exports = router;
 
