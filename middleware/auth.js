@@ -20,6 +20,8 @@ module.exports = async function (req, res, next) {
 		if(checkUser) {
 			if(checkUser.isAdminUser)
 				req.isAdminUser = checkUser.isAdminUser
+		} else {
+			return res.status(401).json({ msg: 'User not found' });
 		}
 
 		

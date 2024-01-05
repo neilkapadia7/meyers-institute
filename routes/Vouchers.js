@@ -10,15 +10,15 @@ const AuthController = require('@controllers/auth');
 const VoucherController = require('@controllers/Vouchers');
 const auth = require('@middleware/auth');
 
-// @route   GET    api/voucher
+// @route   POST    api/voucher/get
 // @desc    Get all vouchers
 // @access  Private
-router.get('/', auth, VoucherController.getAllVouchers);
+router.post('/get', auth, VoucherController.getAllVouchers);
 
-// @route   GET    api/voucher/:voucherId
+// @route   GET    api/voucher/get/:voucherId
 // @desc    Get get voucher
 // @access  Private
-router.get('/:voucherId', auth, VoucherController.getVoucher);
+router.get('/get/:voucherId', auth, VoucherController.getVoucher);
 
 // @route  POST    api/voucher/add
 // @desc   Add Voucher
@@ -40,7 +40,7 @@ router.post(
 	}
 );
 
-// @route  POST    api/voucher/add
+// @route  POST    api/voucher/updateVoucher
 // @desc   Update Voucher
 // @access   Private
 router.post(
