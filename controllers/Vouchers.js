@@ -109,14 +109,37 @@ module.exports = {
     // Update Voucher
     async updateVoucher(req, res, user) {
         try {
-            const {expiryDate, name, userId} = req.body;
-            const salt = await bcrypt.genSalt(10);
+            const {voucherId, expiryDate, name, isActive, limit} = req.body;
 
-			let newPassword = await bcrypt.hash(password, salt);
-            user.password = newPassword;
-            await user.save();
+            let voucher = await Vouchers.findOne({userId: req.userId, _id: voucherId});
+            if(!voucher) {
+                return res.status(400).json({message: "Voucher not found"});
+            }
 
-            return res.status(200).json({message: "Success"});
+            if(expiryDate) {
+                if(moment(expiryDate) < moment()) {
+                    return res.status(400).json({message: "Enter Valid Expiry Date"});
+                }
+                voucher.expiryDate = expiryDate;
+            }
+
+            if(isActive) {
+                if(moment(voucher.expiryDate) < moment()) {
+                    return res.status(400).json({message: "Enter Valid Expiry Date"});
+                }
+                voucher.isActive = isActive;
+            }
+
+            if(limit) {
+                if(limit < redeemedCount) {
+                    return res.status(400).json({message: "Please enter a valid limit"});
+                }
+                voucher.limit = limit;
+            }
+
+            await voucher.save();
+
+            return res.status(200).json(voucher);
         } catch (error) {
 			console.error(error.message);
             res.status(500).json({ msg: 'Server Error' });
