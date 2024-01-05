@@ -12,10 +12,15 @@ const auth = require('@middleware/auth');
 // @access  Private
 router.post('/get', auth, StudentController.getAllStudents);
 
-// @route   GET    api/student/getByBatch/:voucherId
+// @route   POST    api/student/getByBatch/
 // @desc    Get get all students by batch
 // @access  Private
-router.get('/getByBatch', auth, StudentController.getStudentByBatch);
+router.post('/getByBatch', 
+	[
+		check('batchId', 'Please add batchId').isString()
+	],
+	auth, 
+	StudentController.getStudentByBatch);
 
 // @route  POST    api/student/add
 // @desc   Add Student
