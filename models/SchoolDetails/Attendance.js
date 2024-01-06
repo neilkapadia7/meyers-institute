@@ -9,6 +9,10 @@ const AttendanceSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Batches",
     },
+	liveClassId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "LiveClasses",
+    },
 	students: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Students",

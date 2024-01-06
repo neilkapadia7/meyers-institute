@@ -2,6 +2,8 @@ const Users = require("@models/User");
 const Vouchers = require("@models/Vouchers/Vouchers");
 const Students = require("@models/SchoolDetails/Students");
 const Batches = require("@models/SchoolDetails/Batches");
+const Attendance = require('@models/SchoolDetails/Attendance');
+const LiveClasses = require('@models/SchoolDetails/LiveClasses');
 const moment = require("moment");
 
 
@@ -239,7 +241,7 @@ module.exports = {
 
       let checkBatch = await Batches.findOne({_id: batchId});
       if(!checkBatch) {
-        return res.status(400).json({ msg: 'Student Not Found' });
+        return res.status(400).json({ msg: 'Batch Not Found' });
       }
 
       if(moment(startDate) >= moment(endDate)) {
@@ -265,4 +267,94 @@ module.exports = {
       res.status(500).json({ msg: 'Server Error' });
     }
   },
+
+
+  // ----------------------------------------------------------------------------------------
+  // Attendance
+
+  // POST api/attendance/mark
+  // Mark All Student Attendance by Class
+  async markAttendanceByClass(req, res) {
+    try {
+      const {date, students, batchId, liveClassId} = req.body;
+      let checkBatch = await Batches.findOne({_id: batchId});
+      if(!checkBatch) {
+        return res.status(400).json({ msg: 'Batch Not Found' });
+      }
+
+      // Check Live Class
+      let checkLiveClass = await LiveClasses.findOne({_id: liveClassId});
+      if(!checkLiveClass) {
+        return res.status(400).json({ msg: 'Live Class Not Found' });
+      }
+
+      let attendance = await new Attendance({...req.body}).save();
+
+      res.status(200).json(attendance);
+
+    } catch (error) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+  
+  // POST api/attendance/get
+  // Get Attendance by Class ID
+  async getAttendanceByClass(req, res) {
+    try {
+      const {liveClassId} = req.body;
+      let checkLiveClass = await LiveClasses.findOne({_id: liveClassId});
+      if(!checkLiveClass) {
+        return res.status(400).json({ msg: 'Batch Not Found' });
+      }
+
+      let attendance = await Attendance.findOne({liveClassId});
+
+      res.status(200).json(attendance);
+
+    } catch (error) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+
+
+  // POST 
+  // Get all Live Classes by Batch
+  // api/batch/getLiveClasses
+  async getLiveClassesByBatch(req, res) {
+    try {
+      const {batchId} = req.body;
+      let checkBatch = await Batches.findOne({_id: batchId});
+      if(!checkBatch) {
+        return res.status(400).json({ msg: 'Batch Not Found' });
+      }
+
+      let liveClasses = await LiveClasses.find({batchId});
+
+      res.status(200).json(liveClasses);
+    } 
+    catch (error) {
+      console.error(err.message);
+      res.status(500).json({ msg: 'Server Error' });
+    }
+  },
+
+  // POST
+  // Get all Batches
+  // async getAllBatch(req, res) {
+  //   try {
+  //     let query = {};
+  //     if(!req.isAdminUser) {
+  //       query = {...query, userId: req.userId};
+  //     }
+  //     let getBatch = await Batches.find(query);
+      
+  //     res.status(200).json(getBatch);
+  //   } 
+  //   catch (error) {
+  //     console.error(err.message);
+  //     res.status(500).json({ msg: 'Server Error' });
+  //   }
+  // }
 };

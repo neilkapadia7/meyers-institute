@@ -2,32 +2,41 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
-const Attendance = require('../models/SchoolDetails/Attendance');
+const Attendance = require('@models/SchoolDetails/Attendance');
+const SchoolController = require('@controllers/SchoolDetails');
 const adminMiddleware = require('../middleware/admin');
+const auth = require('@middleware/auth');
 
-// @route   GET    api/admin/attendance
-// @desc    Get All Attendance
+
+// @route   POST    api/attendance/get
+// @desc    Get All Attendance by ClassId
 // @access  Private
-router.get('/', adminMiddleware, async (req, res) => {
-	try {
-		const attendance = await Attendance.find().sort(-date);
-		res.json(attendance);
-	} catch (err) {
-		console.error(err.message);
-		res.status(500).send('Server Error');
+router.post('/get', 
+	auth,
+	[
+		check('liveClassId', 'Please Add Students').isString(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+		SchoolController.getAttendanceByClass(req, res);
 	}
-});
+);
 
-// @route   POST    api/admin/attendance
+// @route   POST    api/attendance/mark
 // @desc    Add Attendance
 // @access  Private
 router.post(
-	'/',
+	'/mark',
 	[
-		adminMiddleware,
+		auth,
 		[
-			check('date', 'Please Add A Valid Date').not().isEmpty(),
-			check('students', 'Please Add Students').not().isEmpty(),
+			check('date', 'Please Add A Valid Date').isString(),
+			check('students', 'Please Add Students').isArray(),
+			check('batchId', 'Please Add Students').isString(),
+			check('liveClassId', 'Please Add Students').isString(),
 		],
 	],
 	async (req, res) => {
@@ -36,24 +45,7 @@ router.post(
 			return res.status(400).json({ errors: errors.array() });
 		}
 
-		const { date, students } = req;
-
-		try {
-			let attendance = await Attendance.findOne({ date });
-
-			if (attendance) {
-				return res
-					.status(400)
-					.json({ msg: 'Already Entered Attendance for this date' });
-			}
-
-			await attendance.save();
-
-			res.json(attendance);
-		} catch (err) {
-			console.error(err.message);
-			res.status(500).send('Server Error');
-		}
+		SchoolController.markAttendanceByClass(req, res);
 	}
 );
 
