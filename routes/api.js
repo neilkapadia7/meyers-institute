@@ -22,6 +22,7 @@ router.use('/student', require('@routes/Students')); // Done
 router.use('/batch', require('@routes/Batches')); // Done
 router.use('/attendance', require('@routes/Attendance')); // Done
 router.use('/student/payment', require('@routes/StudentPayment')); // Done
+router.use('/syllabus', require('@routes/Syllabus')); // Done
 
 module.exports = router;
 

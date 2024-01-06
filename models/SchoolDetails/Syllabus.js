@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 // Incomplete
 const Syllabus = mongoose.Schema({
-	name: {
+	subjectName: {
 		type: String,
 		required: true,
 	},
@@ -12,10 +12,12 @@ const Syllabus = mongoose.Schema({
     },
     syllabus: [
         {
+            sequenceNo: {type: Number},
             title: {type: String},
             subtopics: [
                 {
-                    subtopicTitle: {type: String}
+                    subtopicTitle: {type: String},
+                    sequenceNo: {type: Number},
                 }
             ],
         }
