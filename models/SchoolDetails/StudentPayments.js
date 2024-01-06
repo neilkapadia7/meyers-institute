@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 // Incomplete
 const StudentPayments = mongoose.Schema({
-    isPaid: {type: Boolean, default: false},
+    isPaymentComplete: {type: Boolean, default: false},
+    isMarkedPaid: {type: Boolean, default: false},
     batchId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Batches",
@@ -18,6 +19,10 @@ const StudentPayments = mongoose.Schema({
     totalPaidAmount: {type: Number, default: 0},
     totalPendingAmount: {type: Number},
     discountedAmount: {type: Number, default: 0},
+    paymentHistory: [{
+        amount: {type: Number},
+        paidOn: {type: Date},
+    }],
 }, 
 {
     timestamps: {
