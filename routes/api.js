@@ -12,7 +12,7 @@ const adminMiddleware = require('../middleware/admin');
 
 router.use('/admin', require('@routes/admin'));
 router.use('/admin/auth', require('@routes/adminauth'));
-router.use('/admin/attendance', require('@routes/attendance'));
+// router.use('/admin/attendance', require('@routes/attendance'));
 router.use('/notes', require('@routes/notes'));
 router.use('/users', require('@routes/users'));
 router.use('/auth', require('@routes/Auth')); // Done

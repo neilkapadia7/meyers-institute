@@ -2,7 +2,7 @@ const express = require('express');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
-const User = require('@models/User');
+const User = require('@models/Users/User');
 const AuthController = require('@controllers/auth');
 const StudentController = require('@controllers/SchoolDetails');
 const auth = require('@middleware/auth');

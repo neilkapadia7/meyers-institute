@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
-const User = require('../models/User');
+const User = require('@models/Users/User');
 
 // And Admin Can See all the added users
 

@@ -1,4 +1,4 @@
-const Users = require("@models/User");
+const Users = require("@models/Users/User");
 const Vouchers = require("@models/Vouchers/Vouchers");
 const moment = require("moment");
 
