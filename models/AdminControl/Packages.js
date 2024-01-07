@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const Vouchers = mongoose.Schema({
+const Packages = mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
@@ -35,4 +35,4 @@ const Vouchers = mongoose.Schema({
 }
 );
 
-module.exports = mongoose.model('Vouchers', Vouchers);
+module.exports = mongoose.model('Packages', Packages);
