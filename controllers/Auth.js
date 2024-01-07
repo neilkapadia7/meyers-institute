@@ -1,5 +1,5 @@
 const Users = require("@models/Users/User");
-const Vouchers = require("@models/Vouchers/Vouchers");
+const Vouchers = require("@models/AdminControl/Vouchers");
 
 
 module.exports = {

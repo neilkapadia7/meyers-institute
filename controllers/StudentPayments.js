@@ -1,5 +1,5 @@
 const Users = require("@models/Users/User");
-const Vouchers = require("@models/Vouchers/Vouchers");
+const Vouchers = require("@models/AdminControl/Vouchers");
 const Students = require("@models/SchoolDetails/Students");
 const Batches = require("@models/SchoolDetails/Batches");
 const StudentPayments = require("@models/SchoolDetails/StudentPayments");
