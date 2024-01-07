@@ -10,19 +10,20 @@ const adminMiddleware = require('../middleware/admin');
 
 
 
-router.use('/admin', require('@routes/admin'));
-router.use('/admin/auth', require('@routes/adminauth'));
+router.use('/admin', require('@routes/admin')); // Delete
+router.use('/admin/auth', require('@routes/adminauth')); // Delete
 // router.use('/admin/attendance', require('@routes/attendance'));
-router.use('/notes', require('@routes/notes'));
-router.use('/users', require('@routes/users'));
+router.use('/notes', require('@routes/notes')); // Delete
+router.use('/users', require('@routes/Users')); // Done
 router.use('/auth', require('@routes/Auth')); // Done
-router.use('/guest', require('@routes/guest'));
+router.use('/guest', require('@routes/guest')); // Delete
 router.use('/voucher', require('@routes/Vouchers')); // Done
 router.use('/student', require('@routes/Students')); // Done
 router.use('/batch', require('@routes/Batches')); // Done
 router.use('/attendance', require('@routes/Attendance')); // Done
 router.use('/student/payment', require('@routes/StudentPayment')); // Done
 router.use('/syllabus', require('@routes/Syllabus')); // Done
+router.use('/transactions', require('@routes/Transactions')); 
 
 module.exports = router;
 

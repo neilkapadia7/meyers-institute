@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const PackageTransactions = mongoose.Schema({
         gateway: {
           type: String,
-          enum: ['razorpay', 'easebuzz', 'payu', 'na'],
-          default: 'na',
+        //   enum: ['razorpay'],
+          default: 'razorpay',
         },
         isFreeTransaction: { type: Boolean, default: false },
         razorpaySignature: { type: String },
