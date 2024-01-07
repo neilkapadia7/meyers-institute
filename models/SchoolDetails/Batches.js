@@ -5,6 +5,10 @@ const Batches = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+    instituteId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Institutes",
+    },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",

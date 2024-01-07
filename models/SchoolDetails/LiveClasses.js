@@ -9,6 +9,10 @@ const LiveClasses = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Batches",
     },
+    instrutorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+    },
     startDate: {type: Date},
     endDate: {type: Date},
     isDeleted: {type: Boolean, default: false}

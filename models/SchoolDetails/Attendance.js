@@ -21,7 +21,6 @@ const AttendanceSchema = mongoose.Schema({
 			default: false
 		}
     }],
-
 });
 
 module.exports = mongoose.model('Attendances', AttendanceSchema);

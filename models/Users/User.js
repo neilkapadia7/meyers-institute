@@ -30,7 +30,7 @@ const UserSchema = mongoose.Schema({
 	},
 	accessType: {
 		type: String,
-		enum: ["Instructor", "SchoolAdmin", "BatchAdmin"],
+		enum: ["Instructor", "InstituteAdmin", "BatchAdmin"],
 		// default: "SchoolAdmin"
 	},
 	isAdminUser: {
