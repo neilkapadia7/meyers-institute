@@ -28,9 +28,18 @@ const UserSchema = mongoose.Schema({
 	referralCode: {
 		type: String
 	},
+	accessType: {
+		type: String,
+		enum: ["Instructor", "SchoolAdmin", "BatchAdmin"],
+		// default: "SchoolAdmin"
+	},
 	isAdminUser: {
 		type: Boolean,
 		default: false
+	},
+	instituteId: {
+		type: mongoose.Schema.Types.ObjectId,
+        ref: "Institutes",
 	},
 	totalReferrals: {type: Number, default: 0}
 }, 
