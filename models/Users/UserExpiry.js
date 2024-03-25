@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserExpiryDetails = mongoose.Schema({
-	userId: {
+	  userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
     },
@@ -12,6 +12,11 @@ const UserExpiryDetails = mongoose.Schema({
         isFreeAccess: {type: Boolean, default: false},
         expiryDate: {type: Date},
         startDate: {type: Date},
+        updatedAt: {type: Date},
+        updatedBy: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Users",
+        },
     }]
 }, 
 {

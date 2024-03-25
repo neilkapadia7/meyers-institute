@@ -28,6 +28,10 @@ const UserSchema = mongoose.Schema({
 	referralCode: {
 		type: String
 	},
+	referredBy: {
+		type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+	},
 	accessType: {
 		type: String,
 		enum: ["Instructor", "InstituteAdmin", "BatchAdmin"],

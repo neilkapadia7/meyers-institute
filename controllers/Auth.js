@@ -1,5 +1,6 @@
 const Users = require("@models/Users/User");
 const Vouchers = require("@models/AdminControl/Vouchers");
+const bcrypt = require('bcryptjs');
 
 
 module.exports = {

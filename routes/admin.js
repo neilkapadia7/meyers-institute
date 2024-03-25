@@ -89,11 +89,11 @@ router.get('/getAllUsers',
 );
 
 
-// @route  POST    api/admin/addUser
+// @route  POST    api/admin/addNewUser
 // @desc   Update User Access
 // @access   Private
 router.post(
-	'/updateAccess',
+	'/addNewUser',
 	[
 		check('name', 'Please Include a Name').isString(),
 		check('email', 'Please Include a Valid Email Id').isString(),
@@ -117,7 +117,7 @@ router.post(
 			return res.status(401).json({message: "Invalid Access"})
 		}
 
-		AdminController.addUser(req, res);
+		AdminController.addNewUser(req, res);
 	}
 );
 
@@ -129,6 +129,7 @@ router.post(
 	[
 		check('userId', 'Please Include a userId').isString(),
 		check('expiryDate', 'Please enter your expiryDate').isString(),
+		check('terminateAccess', 'Please enter terminateAccess').isBoolean(),
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
