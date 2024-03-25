@@ -10,7 +10,7 @@ const adminMiddleware = require('../middleware/admin');
 
 
 
-// router.use('/admin', require('@routes/admin')); // Delete
+router.use('/admin', require('@routes/admin')); // Renewed
 // router.use('/admin/auth', require('@routes/adminauth')); // Delete
 // router.use('/admin/attendance', require('@routes/attendance'));
 // router.use('/notes', require('@routes/notes')); // Delete

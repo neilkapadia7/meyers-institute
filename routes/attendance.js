@@ -35,8 +35,8 @@ router.post(
 		[
 			check('date', 'Please Add A Valid Date').isString(),
 			check('students', 'Please Add Students').isArray(),
-			check('batchId', 'Please Add Students').isString(),
-			check('liveClassId', 'Please Add Students').isString(),
+			check('batchId', 'Please Add batchId').isString(),
+			check('liveClassId', 'Please Add liveClassId').isString(),
 		],
 	],
 	async (req, res) => {

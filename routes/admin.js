@@ -2,11 +2,15 @@ const express = require('express');
 const config = require('config');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const auth = require('@middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 const router = express.Router();
 const Admin = require('../models/Admin');
+const AdminController = require('@controllers/AdminController');
+const AuthController = require('@controllers/Auth');
 
+// Deprecated
 router.post(
 	'/',
 	[
@@ -67,5 +71,105 @@ router.post(
 		}
 	}
 );
+
+// ADMIN ACTIONS -----------------------------------------------------------------------
+
+// @route   GET    api/admin/getAllUsers
+// @desc    Get All Users
+// @access  Private
+router.get('/getAllUsers',
+	auth,
+	async (req, res) => {
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.getAllUsers(req, res);
+	}
+);
+
+
+// @route  POST    api/admin/addUser
+// @desc   Update User Access
+// @access   Private
+router.post(
+	'/updateAccess',
+	[
+		check('name', 'Please Include a Name').isString(),
+		check('email', 'Please Include a Valid Email Id').isString(),
+		check('password', 'Please Include a password').isString(),
+		check('isFreeUser', 'Please Include a isFreeUser').isBoolean().optional(),
+		check('referralCode', 'Please Include referralCode').isString().optional(),
+		check('isPremiumUser', 'Please Include isPremiumUser').isBoolean().optional(),
+		check('accessType', 'Please Include accessType').isString(),
+		check('isAdminUser', 'Please Include isAdminUser').isString(),
+		check('instituteId', 'Please Include instituteId').isString().optional(),
+		check('expiryDate', 'Please enter your expiryDate').isString(), // Expiry Module
+		check('isUnlimited', 'Please enter your isUnlimited').isBoolean(), // Expiry Module
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.addUser(req, res);
+	}
+);
+
+// @route  POST    api/admin/updateAccess
+// @desc   Update User Access
+// @access   Private
+router.post(
+	'/updateAccess',
+	[
+		check('userId', 'Please Include a userId').isString(),
+		check('expiryDate', 'Please enter your expiryDate').isString(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.updateUserAccess(req, res);
+	}
+);
+
+
+// @route  POST    api/admin/passwordChange
+// @desc   User Password Update
+// @access  Prive
+router.post(
+	'/passwordChange',
+	[
+		check('email', 'Please Include a Valid Email Id').isEmail(),
+		check('password', 'Please enter your password').not().isEmpty(),
+	],
+	auth,
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		const checkUser = await User.findOne({email});
+		if(req.isAdminUser || (checkUser && checkUser._id == req.userId)) {
+			AuthController.updatePassword(req, res, checkUser);
+		}
+		else {
+			return res.status(400).json({ message: "Invalid Access" });
+		}
+	}
+);
+
 
 module.exports = router;

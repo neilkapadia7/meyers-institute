@@ -7,7 +7,7 @@ const UserExpiryDetails = mongoose.Schema({
     },
     isUnlimited: {type: Boolean, default: false},
     expiryDate: {type: Date},
-    startDate: {type: Date},
+    startDate: {type: Date, default: Date.now()},
     history: [{
         isFreeAccess: {type: Boolean, default: false},
         expiryDate: {type: Date},

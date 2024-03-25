@@ -9,7 +9,7 @@ const auth = require('@middleware/auth');
 // @route   GET    api/syllabus/get
 router.get('/get', auth, async (req, res) => SyllabusController.getAllSyllabus(req, res));
 
-// @route   POST    api/syllabus/getByBatch/
+// @route   POST    api/syllabus/getByBatch
 router.post('/getByBatch', 
 	[
 		check('batchId', 'Please add batchId').isString()

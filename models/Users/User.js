@@ -41,7 +41,8 @@ const UserSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
         ref: "Institutes",
 	},
-	totalReferrals: {type: Number, default: 0}
+	totalReferrals: {type: Number, default: 0},
+	isActive: {type: Boolean, default: true},
 }, 
 {
     timestamps: {
