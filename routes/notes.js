@@ -38,7 +38,7 @@ router.post(
 			res.json(notes);
 		} catch (err) {
 			console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' });
+			res.status(500).json({ message: 'Server Error' });
 		}
 	}
 );
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 		res.json(notes);
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).json({ msg: 'Server Error' });
+		res.status(500).json({ message: 'Server Error' });
 	}
 });
 
@@ -64,14 +64,14 @@ router.delete('/:id', admin, async (req, res) => {
 	try {
 		const notes = await Notes.findById(req.params.id);
 
-		if (!notes) return res.status(404).json({ msg: 'File Not Found' });
+		if (!notes) return res.status(404).json({ message: 'File Not Found' });
 
 		await Notes.findByIdAndRemove(req.params.id);
 
-		res.json({ msg: 'File Delete' });
+		res.json({ message: 'File Delete' });
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).json({ msg: 'Server Error' });
+		res.status(500).json({ message: 'Server Error' });
 	}
 });
 

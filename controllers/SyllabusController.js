@@ -25,7 +25,7 @@ module.exports = {
             return res.status(200).json(syllabus);
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -48,7 +48,7 @@ module.exports = {
             return res.status(200).json(syllabus);
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -89,7 +89,7 @@ module.exports = {
             return res.status(200).json(syllabusDetails);
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -138,7 +138,7 @@ module.exports = {
             return res.status(200).json(syllabusDetails);
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 }

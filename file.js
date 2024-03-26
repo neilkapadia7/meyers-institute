@@ -17,7 +17,7 @@ router.post(
 	],
 	async (req, res) => {
 		if (req.files === null) {
-			return res.status(400).json({ msg: 'No File Uploaded' });
+			return res.status(400).json({ message: 'No File Uploaded' });
 		}
 
 		var file = req.files.file;

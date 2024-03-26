@@ -23,7 +23,7 @@ module.exports = {
             return res.status(200).json({data: user, message: "Success"});
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -105,7 +105,7 @@ module.exports = {
             return res.status(200).json({data: newAccount, message: "Success"});
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -147,7 +147,7 @@ module.exports = {
             return res.status(200).json({message: 'Success', data: userAccess});
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 
@@ -180,7 +180,7 @@ module.exports = {
             return res.status(200).json({message: 'Success', data: newInstitute});
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
     
@@ -231,7 +231,7 @@ module.exports = {
             return res.status(200).json({message: 'Success', data: checkInstitute});
         } catch (error) {
             console.error(err.message);
-			res.status(500).json({ msg: 'Server Error' }); 
+			res.status(500).json({ message: 'Server Error' }); 
         }
     },
 }

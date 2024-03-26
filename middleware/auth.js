@@ -6,7 +6,7 @@ module.exports = async function (req, res, next) {
 	const token = req.header('x-auth-token');
 
 	if (!token) {
-		return res.status(402).json({ msg: 'No Token, Authorization Denied' });
+		return res.status(402).json({ message: 'No Token, Authorization Denied' });
 	}
 	try {
 		const decoded = jwt.verify(token, config.get('jwtSecret'));
@@ -21,12 +21,12 @@ module.exports = async function (req, res, next) {
 			if(checkUser.isAdminUser)
 				req.isAdminUser = checkUser.isAdminUser
 		} else {
-			return res.status(401).json({ msg: 'User not found' });
+			return res.status(401).json({ message: 'User not found' });
 		}
 
 		
 		next();
 	} catch (err) {
-		return res.status(401).json({ msg: 'Token is not Valid' });
+		return res.status(401).json({ message: 'Token is not Valid' });
 	}
 };

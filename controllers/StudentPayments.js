@@ -25,7 +25,7 @@ module.exports = {
       } 
       catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -37,12 +37,12 @@ module.exports = {
 
         let checkStd = await Students.findOne({_id: studentId});
         if(checkStd) {
-          return res.status(400).json({ msg: 'Student Not Found' });
+          return res.status(400).json({ message: 'Student Not Found' });
         }
 
         let checkBatch = await Batches.findOne({_id: batchId});
         if(!checkBatch) {
-          return res.status(400).json({ msg: 'Batch does not exist' });
+          return res.status(400).json({ message: 'Batch does not exist' });
         }
 
         let totalPendingAmount = checkBatch.coursePrice - (totalPaidAmount + discountedAmount);
@@ -57,7 +57,7 @@ module.exports = {
 
       } catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -68,13 +68,13 @@ module.exports = {
 
         let checkStd = await Students.findOne({_id: studentId});
         if(!checkStd) {
-          return res.status(400).json({ msg: 'Student Not Found' });
+          return res.status(400).json({ message: 'Student Not Found' });
         }
 
         if(batchId) {
           let checkBatch = await Batches.findOne({_id: batchId});
           if(!checkBatch) {
-            return res.status(400).json({ msg: 'Batch does not exist' });
+            return res.status(400).json({ message: 'Batch does not exist' });
           }
         }
 
@@ -115,7 +115,7 @@ module.exports = {
       } 
       catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 }

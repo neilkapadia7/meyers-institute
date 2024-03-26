@@ -22,7 +22,7 @@ module.exports = {
           let user = await Users.findById(req.userId);
 
           if (!user) {
-              return res.status(400).json({ msg: 'Invalid User' });
+              return res.status(400).json({ message: 'Invalid User' });
           }
 
           query = {...query, userId: req.userId}; // return the vouchers created by a single user
@@ -48,7 +48,7 @@ module.exports = {
       } 
       catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -67,7 +67,7 @@ module.exports = {
           let user = await Users.findById(req.userId);
 
           if (!user) {
-            return res.status(400).json({ msg: 'Invalid User' });
+            return res.status(400).json({ message: 'Invalid User' });
           }
 
           query = {...query, userId: req.userId}; // return the vouchers created by a single user
@@ -93,7 +93,7 @@ module.exports = {
 
       } catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -104,12 +104,12 @@ module.exports = {
 
         let checkStd = await Students.findOne({email});
         if(checkStd) {
-          return res.status(400).json({ msg: 'Student Already Exists' });
+          return res.status(400).json({ message: 'Student Already Exists' });
         }
 
         let checkBatch = await Batches.findOne({_id: currentBatch});
         if(!checkBatch) {
-          return res.status(400).json({ msg: 'Batch does not exist' });
+          return res.status(400).json({ message: 'Batch does not exist' });
         }
 
         let student = await new Students({...req.body, userId: req.isAdminUser && userId || req.userId });
@@ -117,7 +117,7 @@ module.exports = {
 
       } catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -128,13 +128,13 @@ module.exports = {
 
         let checkStd = await Students.findOne({_id: studentId});
         if(!checkStd) {
-          return res.status(400).json({ msg: 'Student Not Found' });
+          return res.status(400).json({ message: 'Student Not Found' });
         }
 
         if(currentBatch) {
           let checkBatch = await Batches.findOne({_id: currentBatch});
           if(!checkBatch) {
-            return res.status(400).json({ msg: 'Batch does not exist' });
+            return res.status(400).json({ message: 'Batch does not exist' });
           }
           checkStd.currentBatch = currentBatch;
         }
@@ -148,7 +148,7 @@ module.exports = {
       } 
       catch (err) {
         console.error(err.message);
-        res.status(500).json({ msg: 'Server Error' });
+        res.status(500).json({ message: 'Server Error' });
       }
     },
 
@@ -167,7 +167,7 @@ module.exports = {
         let user = await Users.findById(req.userId);
 
         if (!user) {
-            return res.status(400).json({ msg: 'Invalid User' });
+            return res.status(400).json({ message: 'Invalid User' });
         }
 
         query = {...query, userId: req.userId}; // return the vouchers created by a single user
@@ -193,7 +193,7 @@ module.exports = {
     } 
     catch (err) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -207,7 +207,7 @@ module.exports = {
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -218,11 +218,11 @@ module.exports = {
 
       let checkBatch = await Batches.findOne({name, userId: req.userId});
       if(checkBatch) {
-        return res.status(400).json({ msg: 'Batch Already Exists' });
+        return res.status(400).json({ message: 'Batch Already Exists' });
       }
 
       if(moment(startDate) >= moment(endDate)) {
-        return res.status(400).json({ msg: 'Start Date cannot be greater than or equal to End Date' });
+        return res.status(400).json({ message: 'Start Date cannot be greater than or equal to End Date' });
       }
 
       let batch = await new Batches({...req.body, userId: req.userId });
@@ -230,7 +230,7 @@ module.exports = {
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -241,11 +241,11 @@ module.exports = {
 
       let checkBatch = await Batches.findOne({_id: batchId});
       if(!checkBatch) {
-        return res.status(400).json({ msg: 'Batch Not Found' });
+        return res.status(400).json({ message: 'Batch Not Found' });
       }
 
       if(moment(startDate) >= moment(endDate)) {
-        return res.status(400).json({ msg: 'Start Date cannot be greater than or equal to End Date' });
+        return res.status(400).json({ message: 'Start Date cannot be greater than or equal to End Date' });
       }
 
       checkBatch.startDate = startDate;
@@ -264,7 +264,7 @@ module.exports = {
     } 
     catch (err) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -279,13 +279,13 @@ module.exports = {
       const {date, students, batchId, liveClassId} = req.body;
       let checkBatch = await Batches.findOne({_id: batchId});
       if(!checkBatch) {
-        return res.status(400).json({ msg: 'Batch Not Found' });
+        return res.status(400).json({ message: 'Batch Not Found' });
       }
 
       // Check Live Class
       let checkLiveClass = await LiveClasses.findOne({_id: liveClassId});
       if(!checkLiveClass) {
-        return res.status(400).json({ msg: 'Live Class Not Found' });
+        return res.status(400).json({ message: 'Live Class Not Found' });
       }
 
       let attendance = await new Attendance({...req.body}).save();
@@ -294,7 +294,7 @@ module.exports = {
 
     } catch (error) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
   
@@ -305,7 +305,7 @@ module.exports = {
       const {liveClassId} = req.body;
       let checkLiveClass = await LiveClasses.findOne({_id: liveClassId});
       if(!checkLiveClass) {
-        return res.status(400).json({ msg: 'Batch Not Found' });
+        return res.status(400).json({ message: 'Batch Not Found' });
       }
 
       let attendance = await Attendance.findOne({liveClassId});
@@ -314,7 +314,7 @@ module.exports = {
 
     } catch (error) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -327,7 +327,7 @@ module.exports = {
       const {batchId} = req.body;
       let checkBatch = await Batches.findOne({_id: batchId});
       if(!checkBatch) {
-        return res.status(400).json({ msg: 'Batch Not Found' });
+        return res.status(400).json({ message: 'Batch Not Found' });
       }
 
       let liveClasses = await LiveClasses.find({batchId});
@@ -336,7 +336,7 @@ module.exports = {
     } 
     catch (error) {
       console.error(err.message);
-      res.status(500).json({ msg: 'Server Error' });
+      res.status(500).json({ message: 'Server Error' });
     }
   },
 
@@ -354,7 +354,7 @@ module.exports = {
   //   } 
   //   catch (error) {
   //     console.error(err.message);
-  //     res.status(500).json({ msg: 'Server Error' });
+  //     res.status(500).json({ message: 'Server Error' });
   //   }
   // }
 };
