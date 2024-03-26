@@ -173,4 +173,57 @@ router.post(
 );
 
 
+// @route  POST    api/admin/addInstitutes
+// @desc   Add Institutes
+// @access   Private
+router.post(
+	'/addInstitute',
+	[
+		check('image', 'Please Include an image').isString().optional(),
+		check('name', 'Please enter name').isString(),
+		check('adminId', 'Please enter adminId').isString(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.addInstitute(req, res);
+	}
+);
+
+// @route  POST    api/admin/updateInstitute
+// @desc   Update Institutes
+// @access   Private
+router.post(
+	'/addInstitute',
+	[
+		check('instituteId', 'Please add instituteId').isString(),
+		check('image', 'Please Include an image').isString().optional(),
+		check('name', 'Please enter name').isString(),
+		check('adminId', 'Please enter adminId').isString(),
+		check('instructorList', 'Please add instructorList').isArray().optional(),
+		check('isActive', 'Please enter isActive').isBoolean().optional(),
+	],
+	async (req, res) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json({ errors: errors.array() });
+		}
+
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.updateInstitute(req, res);
+	}
+);
+
+
+
 module.exports = router;

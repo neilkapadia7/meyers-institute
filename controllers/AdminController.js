@@ -124,7 +124,7 @@ module.exports = {
             }
 
             if(terminateAccess) {
-                let user = await Users.findById({userId});
+                let user = await Users.findById(userId);
                 if(!user) {
                     return res.status(400).json({message: "User Not Found!"})
                 }
@@ -152,5 +152,86 @@ module.exports = {
     },
 
 
-    // Institutes
+    // Institutes ----------------------------------------------------------------------------------------------------------------
+    
+    // POST    api/admin/addInstitutes
+    async addInstitute(req, res) {
+        try {
+            let {image, name, adminId} = req.body;
+
+            let checkInstitute = await Institute.findOne({name, isActive: true});
+
+            if(checkInstitute) {
+                return res.status(400).json({message: "Institute Already Exists"});
+            }
+
+            let user = await Users.findById(adminId);
+            if(!user) {
+                return res.status(400).json({message: "User Not Found!"})
+            }
+
+            let newInstitute = await new Institute({
+                image,
+                name,
+                adminId
+            }).save();
+
+
+            return res.status(200).json({message: 'Success', data: newInstitute});
+        } catch (error) {
+            console.error(err.message);
+			res.status(500).json({ msg: 'Server Error' }); 
+        }
+    },
+    
+    // POST    api/admin/updateInstitute
+    async updateInstitute(req, res) {
+        try {
+            let {instituteId, image, name, adminId, instructorList, isActive} = req.body;
+
+            let checkInstitute = await Institute.findById(instituteId);
+
+            if(!checkInstitute) {
+                return res.status(400).json({message: "Institute Does not exist"});
+            }
+
+            let user = await Users.findById(adminId);
+            if(!user) {
+                return res.status(400).json({message: "User Not Found!"});
+            }
+
+            if(req.body.hasOwnProperty(isActive)) {
+                checkInstitute.isActive = isActive;
+            }
+
+            if(req.body.hasOwnProperty(image)) {
+                checkInstitute.image = image;
+            }
+
+            if(req.body.hasOwnProperty(name)) {
+                checkInstitute.name = name;
+            }
+
+            if(req.body.hasOwnProperty(instructorList)) {
+                for (let instructor of instructorList) {
+                    let getInstructorUser = await Users.findById(instructor);
+                    if(!getInstructorUser || getInstructorUser.accessType !== 'Instructor') {
+                        return res.status(400).json({message: "Invalid Instrutor Access"});
+                    }
+                }
+                checkInstitute.instructorList = instructorList;
+            }
+
+            if(req.body.hasOwnProperty(adminId)) {
+                checkInstitute.adminId = adminId;
+            }
+
+            await checkInstitute.save();
+
+            return res.status(200).json({message: 'Success', data: checkInstitute});
+        } catch (error) {
+            console.error(err.message);
+			res.status(500).json({ msg: 'Server Error' }); 
+        }
+    },
 }
