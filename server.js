@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const fileUpload = require('express-fileupload');
+var cors = require('cors')
 require("dotenv").config();
 require("module-alias/register");
 
@@ -9,6 +10,7 @@ const app = express();
 connectDB();
 
 app.use(express.json({ extended: false }));
+app.use(cors())
 
 app.get('/', (req, res) => {
 	res.json({ message: 'Welcome to the API' });

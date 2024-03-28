@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
 		type: Boolean,
 		default: false
 	},
-	referralCode: {
+	referralCode: { // Using which the account was created
 		type: String
 	},
 	referredBy: {

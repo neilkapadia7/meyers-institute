@@ -1,6 +1,9 @@
 const Users = require("@models/Users/User");
 const Vouchers = require("@models/AdminControl/Vouchers");
 const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const {createUserToken} = require("@service/createToken")
+
 
 
 module.exports = {
@@ -22,23 +25,14 @@ module.exports = {
 				return res.status(400).json({ message: 'Invalid Password' });
 			}
 
-			const payload = {
-				user: {
-					id: user.id,
-				},
-			};
+			let generateToken = await createUserToken(user.id);
 
-			jwt.sign(
-				payload,
-				config.get('jwtSecret'),
-				{
-					expiresIn: 3600,
-				},
-				(err, token) => {
-					if (err) throw err;
-					res.json({ token });
-				}
-			);
+            if(!generateToken.isError) {
+                return res.status(200).json({token: generateToken.token});
+            } else {
+                console.log(generateToken.error)
+                return res.status(400).json({message: "Server Error"});
+            }
 		} catch (err) {
 			console.error(err.message);
 			res.status(500).json({ message: 'Server Error' });
@@ -48,7 +42,7 @@ module.exports = {
     // Post -  api/auth/signup
     // Add new user
     async createUser(req, res) {
-        const { name, email, password, referralCode } = req.body;
+        const { name, email, password, referralCode, isPremiumUser, isFreeUser } = req.body;
 
 		try {
 			let user = await Users.findOne({ email });
@@ -84,26 +78,30 @@ module.exports = {
 
                 referralUser.totalReferrals += 1;
                 await referralUser.save();
+            }
 
-                const salt = await bcrypt.genSalt(10);
+            const salt = await bcrypt.genSalt(10);
 
-			    let newPassword = await bcrypt.hash(password, salt);
+			let newPassword = await bcrypt.hash(password, salt);
 
-                let newUser = await new Users({
-                    name,
-                    email,
-                    referralCode,
-                    password: newPassword,
+            let newUser = await new Users({
+                name,
+                email,
+                referralCode,
+                password: newPassword,
                     // isAdminUser,
-                    isPremiumUser,
-                    isFreeUser,
-                }).save()
+                isPremiumUser,
+                isFreeUser,
+            }).save()
 
-                // instead of sharing the password in the response try sharing it in an email
-                return res.status(200).json({ 
-                    ...newUser,
-                    password
-                });
+            // instead of sharing the password in the response try sharing it in an email
+            let generateToken = await createUserToken(newUser.id);
+
+            if(!generateToken.isError) {
+                return res.status(200).json({token: generateToken.token});
+            } else {
+                console.log(generateToken.error)
+                return res.status(400).json({message: "Server Error"});
             }
 			
 		} catch (err) {
