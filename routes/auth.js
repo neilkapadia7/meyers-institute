@@ -14,8 +14,8 @@ const auth = require('@middleware/auth');
 // @access  Private
 router.get('/', auth, async (req, res) => {
 	try {
-		const user = await User.findById(req.user.id).select('-password');
-		res.json(user);
+		const user = await User.findById(req.user).select('-password');
+		res.status(200).json({data: user});
 	} catch (error) {
 		console.error(err.message);
 		res.status(500).send('Server Error');

@@ -15,13 +15,13 @@ const createUserToken = (userId) => {
             payload,
             process.env.jwtSecret,
             {
-                expiresIn: 3600,
+                expiresIn: "365d",
             },
             (err, token) => {
                 if (err) {
                     return resolve({isError: true, error: err, token: null});
                 }
-                
+
                 return resolve({isError: false, error: err, token: token});
             }
         );
