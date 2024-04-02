@@ -15,7 +15,7 @@ module.exports = {
     // GET api/admin/getAllUsers
     async getAllUsers(req, res) {
         try {
-            let user = await Users.find({});
+            let user = await Users.find({}).select("-password");
             if(!user[0]) {
                 return res.status(400).json({message: "No Users Found"});
             }

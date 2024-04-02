@@ -94,6 +94,7 @@ router.get('/getAllUsers',
 // @access   Private
 router.post(
 	'/addNewUser',
+	auth,
 	[
 		check('name', 'Please Include a Name').isString(),
 		check('email', 'Please Include a Valid Email Id').isString(),
@@ -126,10 +127,11 @@ router.post(
 // @access   Private
 router.post(
 	'/updateAccess',
+	auth,
 	[
 		check('userId', 'Please Include a userId').isString(),
-		check('expiryDate', 'Please enter your expiryDate').isString(),
-		check('terminateAccess', 'Please enter terminateAccess').isBoolean(),
+		check('expiryDate', 'Please enter your expiryDate').isString().optional(),
+		check('terminateAccess', 'Please enter terminateAccess').isBoolean().optional(),
 	],
 	async (req, res) => {
 		const errors = validationResult(req);
@@ -151,6 +153,7 @@ router.post(
 // @access  Prive
 router.post(
 	'/passwordChange',
+	auth,
 	[
 		check('email', 'Please Include a Valid Email Id').isEmail(),
 		check('password', 'Please enter your password').not().isEmpty(),
@@ -173,11 +176,12 @@ router.post(
 );
 
 
-// @route  POST    api/admin/addInstitutes
+// @route  POST    api/admin/addInstitute
 // @desc   Add Institutes
 // @access   Private
 router.post(
 	'/addInstitute',
+	auth,
 	[
 		check('image', 'Please Include an image').isString().optional(),
 		check('name', 'Please enter name').isString(),
@@ -201,7 +205,8 @@ router.post(
 // @desc   Update Institutes
 // @access   Private
 router.post(
-	'/addInstitute',
+	'/updateInstitute',
+	auth,
 	[
 		check('instituteId', 'Please add instituteId').isString(),
 		check('image', 'Please Include an image').isString().optional(),
