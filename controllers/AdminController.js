@@ -114,37 +114,47 @@ module.exports = {
         try {
             let {userId, expiryDate, terminateAccess} = req.body;
 
-            if(expiryDate < new Date()) {
-                return res.status(400).json({message: "End date cannot be less than current date"});
+            let user = await Users.findById(userId);
+            if(!user) {
+                return res.status(400).json({message: "User Not Found!"})
             }
 
-            let userAccess = await UserExpiryDetails.findOne({userId});
-            if(!userAccess) {
-                return res.status(400).json({message: "No Access Data Found!"});
-            }
-
-            if(terminateAccess) {
-                let user = await Users.findById(userId);
-                if(!user) {
-                    return res.status(400).json({message: "User Not Found!"})
+            if(expiryDate) {
+                if(expiryDate < new Date()) {
+                    return res.status(400).json({message: "End date cannot be less than current date"});
+                }
+    
+                let userAccess = await UserExpiryDetails.findOne({userId});
+                if(!userAccess) {
+                    return res.status(400).json({message: "No Access Data Found!"});
                 }
 
-                user.isActive = false;
+                userAccess.expiryDate = expiryDate;
+                userAccess.history.push({
+                    expiryDate,
+                    startDate,
+                    updatedAt: new Date(),
+                    updatedBy: req.userId
+                });
+
+                await userAccess.save();
+            }
+            
+
+            if(req.body.hasOwnProperty("terminateAccess")) {
+                user.isActive = !terminateAccess;
+                if(terminateAccess) {
+                    user.revokedOn = new Date();
+                } else {
+                    user.revokedOn = undefined;
+                }
                 await user.save();
                 return res.status(200).json({message: 'Success', data: []});
             }
 
-            userAccess.expiryDate = expiryDate;
-            userAccess.history.push({
-                expiryDate,
-                startDate,
-                updatedAt: new Date(),
-                updatedBy: req.userId
-            });
-
-            await userAccess.save();
             
-            return res.status(200).json({message: 'Success', data: userAccess});
+            
+            return res.status(200).json({message: 'Success', data: user});
         } catch (error) {
             console.error(err.message);
 			res.status(500).json({ message: 'Server Error' }); 
@@ -153,8 +163,38 @@ module.exports = {
 
 
     // Institutes ----------------------------------------------------------------------------------------------------------------
-    
-    // POST    api/admin/addInstitutes
+    // api/admin/getAllInstitute
+    async getAllInstitute(req, res) {
+        try {
+            let { page, search, isCSV } = req.body;
+            
+            let query = {};
+
+            if(search) {
+                query = {...query, name: { $regex: new RegExp(search, 'i') } };
+            }
+
+            let pageNo = 1;
+            if (page) {
+                pageNo = page;
+            }
+
+            let total = await Institute.countDocuments(query);
+            let institutes = await Institute.find(query)
+            .skip(25 * pageNo - 25)
+            .limit(isCSV ? total : 25)
+            .sort({createdAt:-1})
+            .lean(); 
+
+            res.status(200).json(institutes);
+        } catch (error) {
+            console.error(err.message);
+			res.status(500).json({ message: 'Server Error' }); 
+        }
+    },
+
+
+    // POST    api/admin/addInstitute
     async addInstitute(req, res) {
         try {
             let {image, name, adminId} = req.body;

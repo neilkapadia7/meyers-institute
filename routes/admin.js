@@ -176,6 +176,22 @@ router.post(
 );
 
 
+// @route  POST    api/admin/getAllInstitute
+// @desc   Get Institutes
+// @access   Private
+router.post(
+	'/getAllInstitute',
+	auth,
+	async (req, res) => {
+		if(!req.isAdminUser) {
+			return res.status(401).json({message: "Invalid Access"})
+		}
+
+		AdminController.getAllInstitute(req, res);
+	}
+);
+
+
 // @route  POST    api/admin/addInstitute
 // @desc   Add Institutes
 // @access   Private
