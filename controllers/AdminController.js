@@ -181,12 +181,13 @@ module.exports = {
 
             let total = await Institute.countDocuments(query);
             let institutes = await Institute.find(query)
+            .populate('adminId', "_id name")
             .skip(25 * pageNo - 25)
             .limit(isCSV ? total : 25)
             .sort({createdAt:-1})
             .lean(); 
 
-            res.status(200).json(institutes);
+            res.status(200).json({data: institutes, message: "Success"});
         } catch (error) {
             console.error(err.message);
 			res.status(500).json({ message: 'Server Error' }); 

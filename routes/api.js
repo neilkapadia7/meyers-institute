@@ -24,6 +24,7 @@ router.use('/attendance', require('@routes/Attendance')); // Done
 router.use('/student/payment', require('@routes/StudentPayment')); // Done
 router.use('/syllabus', require('@routes/Syllabus')); // Done
 router.use('/transactions', require('@routes/Transactions')); 
+router.use('/institute', require('@routes/Institute')); 
 
 module.exports = router;
 
