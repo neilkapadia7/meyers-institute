@@ -229,6 +229,9 @@ module.exports = {
     async updateInstitute(req, res) {
         try {
             let {instituteId, image, name, adminId, instructorList, isActive} = req.body;
+            if(!adminId) {
+                adminId = req.userId;
+            }
 
             let checkInstitute = await Institute.findById(instituteId);
 
@@ -241,7 +244,7 @@ module.exports = {
                 return res.status(400).json({message: "User Not Found!"});
             }
 
-            if(req.body.hasOwnProperty(isActive)) {
+            if("isActive" in req.body) {
                 checkInstitute.isActive = isActive;
             }
 

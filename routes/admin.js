@@ -226,8 +226,8 @@ router.post(
 	[
 		check('instituteId', 'Please add instituteId').isString(),
 		check('image', 'Please Include an image').isString().optional(),
-		check('name', 'Please enter name').isString(),
-		check('adminId', 'Please enter adminId').isString(),
+		check('name', 'Please enter name').isString().optional(),
+		check('adminId', 'Please enter adminId').isString().optional(),
 		check('instructorList', 'Please add instructorList').isArray().optional(),
 		check('isActive', 'Please enter isActive').isBoolean().optional(),
 	],
