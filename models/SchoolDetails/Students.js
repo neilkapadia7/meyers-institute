@@ -17,7 +17,7 @@ const Students = mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Users",
-    }, // Added for which login 
+    }, // Added for which login (Added By) 
     isActive: {type: Boolean, default: true},
 }, 
 {

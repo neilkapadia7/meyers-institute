@@ -5,6 +5,8 @@ const Batches = require("@models/SchoolDetails/Batches");
 const Attendance = require('@models/SchoolDetails/Attendance');
 const LiveClasses = require('@models/SchoolDetails/LiveClasses');
 const moment = require("moment");
+const Mongoose = require("mongoose");
+const ObjectId = Mongoose.Types.ObjectId;
 
 
 module.exports = {
@@ -25,7 +27,7 @@ module.exports = {
               return res.status(400).json({ message: 'Invalid User' });
           }
 
-          query = {...query, userId: req.userId}; // return the vouchers created by a single user
+          query = {...query, userId: req.userId}; // return the students created by a single user
         }
 
         if(search) {
@@ -112,8 +114,8 @@ module.exports = {
           return res.status(400).json({ message: 'Batch does not exist' });
         }
 
-        let student = await new Students({...req.body, userId: req.isAdminUser && userId || req.userId });
-        res.status(200).json(student);
+        let student = await new Students({...req.body, userId: req.userId }).save();
+        res.status(200).json({data: student, message: "Success"});
 
       } catch (err) {
         console.error(err.message);
@@ -170,7 +172,8 @@ module.exports = {
             return res.status(400).json({ message: 'Invalid User' });
         }
 
-        query = {...query, userId: req.userId}; // return the vouchers created by a single user
+        // query = {...query, userId: req.userId}; // return the vouchers created by a single user
+        query = {...query, instituteId: ObjectId(user.instituteId)}; // Return All Batch By Institute
       }
 
       if(search) {
@@ -188,8 +191,7 @@ module.exports = {
         .limit(isCSV ? total : 25)
         .sort({createdAt:-1})
         .lean(); 
-
-      res.status(200).json(batches);
+      res.status(200).json({data: batches, total, message: "Success"});
     } 
     catch (err) {
       console.error(err.message);
@@ -203,7 +205,7 @@ module.exports = {
       let { batchId } = req.params;
       let batch = await Batches.findOne({_id: batchId});
 
-      res.status(200).json(batch);
+      res.status(200).json({data: batch, message: "Success"});
 
     } catch (err) {
       console.error(err.message);
@@ -221,12 +223,13 @@ module.exports = {
         return res.status(400).json({ message: 'Batch Already Exists' });
       }
 
-      if(moment(startDate) >= moment(endDate)) {
+      if(startDate && endDate && moment(startDate) >= moment(endDate)) {
         return res.status(400).json({ message: 'Start Date cannot be greater than or equal to End Date' });
       }
 
-      let batch = await new Batches({...req.body, userId: req.userId });
-      res.status(200).json(batch);
+      let batch = await new Batches({...req.body, userId: req.userId, instituteId: req.instituteId }).save();
+
+      res.status(200).json({data: batch, message: "Success"});
 
     } catch (err) {
       console.error(err.message);
@@ -260,7 +263,7 @@ module.exports = {
       }
 
       await checkBatch.save();
-      res.status(200).json(checkBatch);
+      res.status(200).json({data: checkBatch, message: "Success"});
     } 
     catch (err) {
       console.error(err.message);

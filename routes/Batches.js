@@ -23,9 +23,9 @@ router.post(
 	'/add',
 	[
 		check('name', 'Please Include a Name').isString(),
-		check('startDate', 'Please enter startDate').isString(),
-		check('endDate', 'Please enter endDate').isString(),
-		check('coursePrice', 'Please enter coursePrice').isNumeric(),
+		check('startDate', 'Please enter startDate').isString().optional(),
+		check('endDate', 'Please enter endDate').isString().optional(),
+		check('coursePrice', 'Please enter coursePrice').isNumeric().optional(),
 	],
     auth,
 	async (req, res) => {

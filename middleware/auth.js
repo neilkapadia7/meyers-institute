@@ -23,8 +23,10 @@ module.exports = async function (req, res, next) {
 		// req.email = decoded.user;
 		
 		req.isAdminUser =false;
-		let checkUser = await Users.findById({_id: req.user}, {isAdminUser: 1});
+		let checkUser = await Users.findById({_id: req.user}, {isAdminUser: 1, instituteId: 1});
 		if(checkUser) {
+			if(checkUser.instituteId) 
+				req.instituteId = checkUser.instituteId
 			if(checkUser.isAdminUser)
 				req.isAdminUser = checkUser.isAdminUser
 		} else {
