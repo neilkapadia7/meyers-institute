@@ -31,7 +31,7 @@ router.post(
 		check('name', 'Please Include a name').isString(),
 		check('email', 'Please Include an email').isString(),
 		check('currentBatch', 'Please Include an current batch').isString(),
-		check('userId', 'Please add userId').isString(),
+		check('userId', 'Please add userId').isString().optional(),
 	],
     auth,
 	async (req, res) => {

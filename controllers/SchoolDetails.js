@@ -41,12 +41,13 @@ module.exports = {
 
         let total = await Students.countDocuments(query);
         let students = await Students.find(query)
+          .populate('currentBatch userId', 'name')
           .skip(25 * pageNo - 25)
           .limit(isCSV ? total : 25)
           .sort({createdAt:-1})
           .lean(); 
 
-        res.status(200).json(students);
+        res.status(200).json({data: students, message: "Success"});
       } 
       catch (err) {
         console.error(err.message);
