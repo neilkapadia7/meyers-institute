@@ -29,7 +29,7 @@ module.exports = {
                     query = {batchId: req.batchId};
                 }
             }
-            let user = await Users.find(query).select("-password");
+            let user = await Users.find(query).populate('batchId instituteId', 'name').select("-password");
             if(!user[0]) {
                 return res.status(400).json({message: "No Users Found"});
             }
