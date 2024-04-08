@@ -13,9 +13,23 @@ let accessTypes = ["Instructor", "InstituteAdmin", "BatchAdmin"];
 
 module.exports = {
     // GET api/admin/getAllUsers
+    // GET api/auth/getAllUsers
     async getAllUsers(req, res) {
         try {
-            let user = await Users.find({}).select("-password");
+            let query = {};
+            if(!req.isAdminUser) {
+                if(!req.instituteId) {
+                    return res.status(400).json({data: [], message: "Invalid Access"})
+                }
+
+                if (req.accessType == "InstituteAdmin") {
+                    query = {instituteId: req.instituteId};
+                } 
+                else if(req.accessType == "BatchAdmin") {
+                    query = {batchId: req.batchId};
+                }
+            }
+            let user = await Users.find(query).select("-password");
             if(!user[0]) {
                 return res.status(400).json({message: "No Users Found"});
             }

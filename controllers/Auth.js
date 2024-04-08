@@ -1,5 +1,6 @@
 const Users = require("@models/Users/User");
 const Vouchers = require("@models/AdminControl/Vouchers");
+const Batches = require("@models/SchoolDetails/Batches");
 const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken");
 const {createUserToken} = require("@service/createToken")
@@ -42,9 +43,14 @@ module.exports = {
     // Post -  api/auth/signup
     // Add new user
     async createUser(req, res) {
-        const { name, email, password, referralCode, isPremiumUser, isFreeUser } = req.body;
+        const { name, email, password, referralCode, isPremiumUser, isFreeUser,isManualUserGeneration, accessType, batchId, instituteId } = req.body;
 
 		try {
+            if(isManualUserGeneration || !accessType) {
+                if(!instituteId) {
+                    return res.status(400).json({data: [], message: "Please Add Institute / Access Type"});
+                }
+            }
 			let user = await Users.findOne({ email });
 
 			if (user) {
@@ -80,19 +86,39 @@ module.exports = {
                 await referralUser.save();
             }
 
-            const salt = await bcrypt.genSalt(10);
-
-			let newPassword = await bcrypt.hash(password, salt);
-
             let newUser = await new Users({
                 name,
                 email,
                 referralCode,
-                password: newPassword,
                     // isAdminUser,
                 isPremiumUser,
                 isFreeUser,
-            }).save()
+            })
+
+            if(accessType != "InstituteAdmin") {
+                if(!batchId) {
+                    return res.status(400).json({ message: 'Please Add Batch' });
+                }
+                let checkBatch = await Batches.findById(batchId);
+                if(!checkBatch || (checkBatch && !checkBatch.isActive)) {
+                    return res.status(400).json({ message: 'Batch Not Found!' });
+                }
+
+                newUser.batchId = batchId;
+            }
+
+
+            const salt = await bcrypt.genSalt(10);
+			let newPassword = await bcrypt.hash(password, salt);
+
+            newUser.password = newPassword;
+            newUser.instituteId = newinstituteId;
+            newUser.accessType = accessType;
+            await newUser.save();
+
+            if(isManualUserGeneration) {
+                return res.status(200).json({data: newUser, message: "Success"})
+            }
 
             // instead of sharing the password in the response try sharing it in an email
             let generateToken = await createUserToken(newUser.id);

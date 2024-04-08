@@ -35,7 +35,7 @@ const UserSchema = mongoose.Schema({
 	accessType: {
 		type: String,
 		enum: ["Instructor", "InstituteAdmin", "BatchAdmin"],
-		// default: "SchoolAdmin"
+		// default: "InstituteAdmin"
 	},
 	isAdminUser: {
 		type: Boolean,
@@ -45,6 +45,10 @@ const UserSchema = mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
         ref: "Institutes",
 	},
+	batchId: [{
+		type: mongoose.Schema.Types.ObjectId,
+        ref: "Batches",
+	}], // Access to the batches
 	totalReferrals: {type: Number, default: 0},
 	isActive: {type: Boolean, default: true},
 	revokedOn: {type: Date},
