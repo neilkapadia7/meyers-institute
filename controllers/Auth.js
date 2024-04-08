@@ -46,8 +46,8 @@ module.exports = {
         const { name, email, password, referralCode, isPremiumUser, isFreeUser,isManualUserGeneration, accessType, batchId, instituteId } = req.body;
 
 		try {
-            if(isManualUserGeneration || !accessType) {
-                if(!instituteId) {
+            if(isManualUserGeneration) {
+                if(!accessType) {
                     return res.status(400).json({data: [], message: "Please Add Institute / Access Type"});
                 }
             }
@@ -112,8 +112,9 @@ module.exports = {
 			let newPassword = await bcrypt.hash(password, salt);
 
             newUser.password = newPassword;
-            newUser.instituteId = newinstituteId;
+            newUser.instituteId = instituteId;
             newUser.accessType = accessType;
+            
             await newUser.save();
 
             if(isManualUserGeneration) {
