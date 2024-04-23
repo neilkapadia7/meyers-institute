@@ -1,0 +1,19 @@
+version: '3.8'
+services:
+  mongodb:
+    image: 'mongo'
+    container_name: 'school_mongo'
+    ports:
+      - '27017:27017'
+    # volumes:
+    #   -
+
+  school_management_backend:
+    image: '.'
+    container_name: school_management_backend
+    depends_on:
+      - mongodb
+    ports:
+      - '3001:3001'
+    environment:
+      - MONGO_URI="mongo://school_mongo:27017"
