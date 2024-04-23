@@ -3,7 +3,7 @@ FROM node:20-alpine
 WORKDIR /app 
 # Working dir for docker 
 
-COPY package* .
+COPY package.json .
 
 RUN npm install
 
